@@ -6,12 +6,13 @@ import {
   Post, 
   Put
 } from "@nestjs/common";
+import { CreateUserDTO } from "./dto/create-user.dto";
 
 @Controller("users")
 export class UserController {
 
   @Post()
-  async create(@Body() data) {
+  async create(@Body() data: CreateUserDTO) {
     let user = {
       name: data.name,
       email: data.email,
