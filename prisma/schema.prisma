@@ -12,9 +12,19 @@ datasource db {
 
 model User {
   id        Int      @default(autoincrement()) @id
-  name      String
+  name      String   
+  username  String   @unique
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  papelId   Int
+  papel     Papel    @relation(fields: [papelId], references: [id])
+}
+
+model Papel {
+  id     Int    @default(autoincrement()) @id
+  titulo String
+  
+  users  User[]
 }
