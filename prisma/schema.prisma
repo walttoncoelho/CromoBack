@@ -20,11 +20,13 @@ model User {
   updatedAt DateTime @default(now())
   papelId   Int
   papel     Papel    @relation(fields: [papelId], references: [id])
+  status    Boolean
 }
 
 model Papel {
   id     Int    @default(autoincrement()) @id
   titulo String
+  codigo String @unique
   
   users  User[]
 }

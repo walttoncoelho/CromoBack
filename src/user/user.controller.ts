@@ -4,22 +4,25 @@ import {
   Get, 
   Param, 
   Post, 
-  Put
+  Patch,
+  ParseIntPipe
 } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
+import { UserService } from "./user.service";
 
 @Controller("users")
 export class UserController {
 
+  constructor(
+    private readonly userService: UserService
+  ) {}
+
   @Post()
-  async create(@Body() data: CreateUserDTO) {
-    let user = {
-      name: data.name,
-      email: data.email,
-      password: data.password
-    };
-    return { user };
+  async create(
+    @Body() userDTO: CreateUserDTO
+  ) {
+    return await this.userService.create(userDTO);
   }
 
   @Get()
@@ -29,24 +32,27 @@ export class UserController {
   }
 
   @Get(":id")
-  async show(@Param() params) {
-    let id = params.id;
+  async show(
+    @Param("id", ParseIntPipe) id: Number
+  ) {
     let user = {
       id
     };
     return { user };
   }
 
-  @Put()
-  async update(@Body() data: UpdateUserDTO, @Param() params) {
-    let id = params.id;
+  @Patch(":id")
+  async update(
+    @Body() { email, name, password, status }: UpdateUserDTO, 
+    @Param("id", ParseIntPipe) id: Number
+  ) {
     let user = {
       id,
-      name: data.name,
-      email: data.email,
-      password: data.password
+      name,
+      email,
+      password,
+      status,
     };
     return { user };
   }
-
 }
