@@ -20,39 +20,28 @@ export class UserController {
 
   @Post()
   async create(
-    @Body() userDTO: CreateUserDTO
+    @Body() createUserDTO: CreateUserDTO
   ) {
-    return await this.userService.create(userDTO);
+    return await this.userService.create(createUserDTO);
   }
 
   @Get()
   async all() {
-    let users: [];
-    return { users };
+    return await this.userService.list();
   }
 
   @Get(":id")
   async show(
-    @Param("id", ParseIntPipe) id: Number
+    @Param("id", ParseIntPipe) id: number
   ) {
-    let user = {
-      id
-    };
-    return { user };
+    return await this.userService.show(id);
   }
 
   @Patch(":id")
   async update(
-    @Body() { email, name, password, status }: UpdateUserDTO, 
-    @Param("id", ParseIntPipe) id: Number
+    @Body() updateUserDTO: UpdateUserDTO, 
+    @Param("id", ParseIntPipe) id: number
   ) {
-    let user = {
-      id,
-      name,
-      email,
-      password,
-      status,
-    };
-    return { user };
+    return await this.userService.update(id, updateUserDTO);
   }
 }
