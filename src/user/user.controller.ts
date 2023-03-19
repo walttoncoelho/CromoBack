@@ -8,6 +8,7 @@ import {
   ParseIntPipe
 } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
+import { ToggleUserStatusDTO } from "./dto/toggle-user-status.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { UserService } from "./user.service";
 
@@ -39,9 +40,17 @@ export class UserController {
 
   @Patch(":id")
   async update(
-    @Body() updateUserDTO: UpdateUserDTO, 
+    @Body() updateUserDTO: UpdateUserDTO,
     @Param("id", ParseIntPipe) id: number
   ) {
     return await this.userService.update(id, updateUserDTO);
   }
+
+  // @Patch(":id/status")
+  // async status(
+  //   @Body() toggleUserStatusDTO: ToggleUserStatusDTO,
+  //   @Param("id", ParseIntPipe) id: number
+  // ) {
+  //   return await this.userService.toggleStatus(id, updateUserDTO);
+  // }
 }
