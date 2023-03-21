@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     UserModule, 
-    // ConfigModule.forRoot()
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
