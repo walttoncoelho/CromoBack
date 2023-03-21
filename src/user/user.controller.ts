@@ -2,11 +2,10 @@ import {
   Body, 
   Controller, 
   Get, 
-  Param, 
   Post, 
   Patch,
-  ParseIntPipe
 } from "@nestjs/common";
+import { ParamId } from "src/decorators/param-id.decorator";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { ToggleUserStatusDTO } from "./dto/toggle-user-status.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
@@ -33,7 +32,7 @@ export class UserController {
 
   @Get(":id")
   async show(
-    @Param("id", ParseIntPipe) id: number
+    @ParamId() id: number
   ) {
     return await this.userService.show(id);
   }
@@ -41,7 +40,7 @@ export class UserController {
   @Patch(":id")
   async update(
     @Body() updateUserDTO: UpdateUserDTO,
-    @Param("id", ParseIntPipe) id: number
+    @ParamId() id: number
   ) {
     return await this.userService.update(id, updateUserDTO);
   }
@@ -49,7 +48,7 @@ export class UserController {
   // @Patch(":id/status")
   // async status(
   //   @Body() toggleUserStatusDTO: ToggleUserStatusDTO,
-  //   @Param("id", ParseIntPipe) id: number
+  //   @ParamId() id: number
   // ) {
   //   return await this.userService.toggleStatus(id, updateUserDTO);
   // }
