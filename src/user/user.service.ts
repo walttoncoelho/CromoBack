@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { User } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateUserDTO } from "./dto/create-user.dto";
-import { ToggleUserStatusDTO } from "./dto/toggle-user-status.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 
 @Injectable()
@@ -50,12 +48,5 @@ export class UserService {
       data: { status: !user.status },
       where: { id: user.id }
     });
-  }
-
-  async changeStatus(
-    user: User,
-    status: boolean
-  ) {
-    
   }
 }

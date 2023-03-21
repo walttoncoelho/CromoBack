@@ -7,7 +7,6 @@ import {
 } from "@nestjs/common";
 import { ParamId } from "src/decorators/param-id.decorator";
 import { CreateUserDTO } from "./dto/create-user.dto";
-import { ToggleUserStatusDTO } from "./dto/toggle-user-status.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { UserService } from "./user.service";
 
@@ -45,11 +44,10 @@ export class UserController {
     return await this.userService.update(id, updateUserDTO);
   }
 
-  // @Patch(":id/status")
-  // async status(
-  //   @Body() toggleUserStatusDTO: ToggleUserStatusDTO,
-  //   @ParamId() id: number
-  // ) {
-  //   return await this.userService.toggleStatus(id, updateUserDTO);
-  // }
+  @Patch(":id/toggle-status")
+  async status(
+    @ParamId() id: number
+  ) {
+    return await this.userService.toggleStatus(id);
+  }
 }
