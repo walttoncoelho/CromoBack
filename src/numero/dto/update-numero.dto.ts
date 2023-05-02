@@ -1,24 +1,6 @@
-import { FormatoNumero } from "@prisma/client";
-import { IsBoolean, IsEnum, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
+import { PartialType } from "@nestjs/mapped-types";
+import { CreateNumeroDTO } from "./create-numero.dto";
 
-export class UpdateNumeroDTO {
-  @IsString()
-  titulo: string;
+export class UpdateNumeroDTO extends PartialType(CreateNumeroDTO) {
 
-  @IsString()
-  descricao: string;
-
-  @IsNumber()
-  @IsPositive()
-  valor: number;
-
-  @IsBoolean()
-  status: boolean;
-
-  @IsEnum(FormatoNumero)
-  formato: FormatoNumero;
-
-  @IsOptional()
-  @IsNumber()
-  ordemExibicao: number | null;
 }
