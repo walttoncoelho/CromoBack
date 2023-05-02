@@ -4,22 +4,26 @@ import {
   Get, 
   Post, 
   Patch,
+  UseGuards,
 } from "@nestjs/common";
+import { AuthGuard } from "src/guards/auth.guard";
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
 import { Role } from "src/enums/role.enum";
+import { RoleGuard } from "src/guards/role.guard";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdateUserDTO } from "./dto/update-user.dto";
 import { UserService } from "./user.service";
 
-@Controller("users")
+@Roles(Role.Admin)
+@UseGuards(AuthGuard, RoleGuard)
+@Controller("manager/users")
 export class UserController {
 
   constructor(
     private readonly userService: UserService
   ) {}
 
-  @Roles(Role.Admin)
   @Post()
   async create(
     @Body() createUserDTO: CreateUserDTO
@@ -27,13 +31,11 @@ export class UserController {
     return await this.userService.create(createUserDTO);
   }
 
-  @Roles(Role.Admin)
   @Get()
   async all() {
     return await this.userService.list();
   }
 
-  @Roles(Role.Admin)
   @Get(":id")
   async show(
     @ParamId() id: number
@@ -41,7 +43,6 @@ export class UserController {
     return await this.userService.show(id);
   }
 
-  @Roles(Role.Admin)
   @Patch(":id")
   async update(
     @Body() updateUserDTO: UpdateUserDTO,
@@ -50,7 +51,6 @@ export class UserController {
     return await this.userService.update(id, updateUserDTO);
   }
 
-  @Roles(Role.Admin)
   @Patch(":id/toggle-status")
   async status(
     @ParamId() id: number

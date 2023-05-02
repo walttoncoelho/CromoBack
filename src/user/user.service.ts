@@ -8,12 +8,7 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateUserDTO) {
-    return await this.prisma.user.create({
-      data: { 
-        ...data,
-        papelId: 1 
-      }
-    });
+    return await this.prisma.user.create({ data });
   }
 
   async list() {

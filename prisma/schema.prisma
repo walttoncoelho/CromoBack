@@ -13,33 +13,26 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
+  status    Boolean
   name      String
   username  String   @unique
   email     String   @unique
   password  String
+  role      Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  papelId   Int
-  papel     Papel    @relation(fields: [papelId], references: [id])
-  status    Boolean
-}
-
-model Papel {
-  id     Int    @id @default(autoincrement())
-  titulo String
-  codigo String @unique
-
-  users User[]
 }
 
 model Numero {
   id            Int           @id @default(autoincrement())
+  status        Boolean
   titulo        String
   descricao     String
   valor         Int
-  status        Boolean
   ordemExibicao Int?
   formato       FormatoNumero @default(EXATO)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
 }
 
 enum FormatoNumero {
@@ -50,14 +43,16 @@ enum FormatoNumero {
 }
 
 model Lead {
-  id         Int     @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   nome       String
   email      String
   telefone   String
   mensagem   String
   newsletter Boolean
   cidadeId   Int?
-  cidade     Cidade? @relation(fields: [cidadeId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  cidade     Cidade?  @relation(fields: [cidadeId], references: [id])
 }
 
 model Cidade {
@@ -75,4 +70,39 @@ model Estado {
   uf         String   @unique
   codigoIbge Int      @unique
   cidades    Cidade[]
+}
+
+model Empreendimento {
+  id          Int                  @id @default(autoincrement())
+  status      Boolean
+  titulo      String
+  descricao   String
+  // tipoEmpreendimento TipoEmpreendimento @default(RESIDENCIAL)
+  slug        String               @unique
+  loteInicial Int
+  loteFinal   Int
+  areaLote    Float
+  // logoEmpreendimento
+  // imagemPlantaBaixa
+  // infraestrutura 
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @default(now())
+  galeria     FotoEmpreendimento[]
+}
+
+// enum TipoEmpreendimento {
+//   RESIDENCIAL
+//   COMERCIAL
+//   INDUSTRIAL
+// }
+
+model FotoEmpreendimento {
+  id               Int            @id @default(autoincrement())
+  status           Boolean
+  arquivo          String         @unique
+  ordemExibicao    Int?
+  empreendimentoId Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @default(now())
+  empreendimento   Empreendimento @relation(fields: [empreendimentoId], references: [id])
 }

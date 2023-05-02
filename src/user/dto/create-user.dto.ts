@@ -2,8 +2,11 @@ import {
   IsString, 
   IsEmail, 
   IsStrongPassword, 
-  IsBoolean
+  IsBoolean,
+  IsOptional,
+  IsEnum
 } from "class-validator";
+import { Role } from "src/enums/role.enum";
 
 export class CreateUserDTO {
 
@@ -26,4 +29,8 @@ export class CreateUserDTO {
 
   @IsBoolean()
   status: boolean;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: number;
 }

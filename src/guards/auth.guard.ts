@@ -17,7 +17,7 @@ export class AuthGuard
       .getRequest();
     let { authorization } = request.headers;
 
-    if (!authorization.length)
+    if (!authorization?.length)
       return false;
 
     let [ method, token ] = authorization.split(' ');
