@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["orderByNulls"]
 }
 
@@ -33,7 +33,7 @@ model Papel {
 }
 
 model Numero {
-  id            Int     @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   titulo        String
   descricao     String
   valor         Int
@@ -47,4 +47,32 @@ enum FormatoNumero {
   APROXIMADO
   DISTANCIA
   MONETARIO
+}
+
+model Lead {
+  id         Int     @id @default(autoincrement())
+  nome       String
+  email      String
+  telefone   String
+  mensagem   String
+  newsletter Boolean
+  cidadeId   Int?
+  cidade     Cidade? @relation(fields: [cidadeId], references: [id])
+}
+
+model Cidade {
+  id         Int    @id @default(autoincrement())
+  titulo     String
+  codigoIbge Int    @unique
+  estadoId   Int
+  estado     Estado @relation(fields: [estadoId], references: [id])
+  leads      Lead[]
+}
+
+model Estado {
+  id         Int      @id @default(autoincrement())
+  titulo     String   @unique
+  uf         String   @unique
+  codigoIbge Int      @unique
+  cidades    Cidade[]
 }
