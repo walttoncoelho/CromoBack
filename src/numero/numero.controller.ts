@@ -17,15 +17,15 @@ export class NumeroController {
     private readonly numeroService: NumeroService
   ) { }
 
+  @Get("/numeros")
+  async present() {
+    return await this.numeroService.present();
+  }
+
   @Roles(Role.Admin)
   @Get("/manager/numeros")
   async all() {
     return await this.numeroService.list();
-  }
-
-  @Get("/numeros")
-  async present() {
-    return await this.numeroService.present();
   }
 
   @Roles(Role.Admin)
