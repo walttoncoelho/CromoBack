@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["orderByNulls"]
 }
 
 datasource db {
@@ -11,8 +12,8 @@ datasource db {
 }
 
 model User {
-  id        Int      @default(autoincrement()) @id
-  name      String   
+  id        Int      @id @default(autoincrement())
+  name      String
   username  String   @unique
   email     String   @unique
   password  String
@@ -24,9 +25,26 @@ model User {
 }
 
 model Papel {
-  id     Int    @default(autoincrement()) @id
+  id     Int    @id @default(autoincrement())
   titulo String
   codigo String @unique
-  
-  users  User[]
+
+  users User[]
+}
+
+model Numero {
+  id            Int     @id @default(autoincrement())
+  titulo        String
+  descricao     String
+  valor         Int
+  status        Boolean
+  ordemExibicao Int?
+  formato       FormatoNumero @default(EXATO)
+}
+
+enum FormatoNumero {
+  EXATO
+  APROXIMADO
+  DISTANCIA
+  MONETARIO
 }

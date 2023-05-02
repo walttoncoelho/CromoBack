@@ -1,7 +1,7 @@
 import { NestMiddleware, BadRequestException } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
 
-export class UserIdCheckMiddleware 
+export class IdCheckMiddleware 
   implements NestMiddleware
 {
   use(req: Request, res: Response, next: NextFunction) {
