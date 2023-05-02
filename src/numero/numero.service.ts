@@ -5,18 +5,34 @@ import { NumeroPresenter } from "./numero.presenter";
 
 @Injectable()
 export class NumeroService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async list() {
+    return await this.prisma.numero.findMany({
+      orderBy: [
+        {
+          status: "desc"
+        },
+        {
+          ordemExibicao: {
+            sort: "asc",
+            nulls: "last"
+          },
+        },
+      ]
+    });
+  }
+
+  async present() {
     let numeros = await this.prisma.numero.findMany({
       where: {
         status: true
       },
       orderBy: {
-        ordemExibicao: { 
+        ordemExibicao: {
           sort: "asc",
           nulls: "last"
-        } 
+        }
       },
       take: 4,
     });

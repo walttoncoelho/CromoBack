@@ -10,29 +10,34 @@ import { Role } from "src/enums/role.enum";
 import { UpdateNumeroDTO } from "./dto/update-numero.dto";
 import { NumeroService } from "./numero.service";
 
-@Controller("numeros")
+@Controller()
 export class NumeroController {
 
   constructor(
     private readonly numeroService: NumeroService
-  ) {}
+  ) { }
 
-  // @Roles(Role.Admin)
-  @Get()
+  @Roles(Role.Admin)
+  @Get("/manager/numeros")
   async all() {
     return await this.numeroService.list();
   }
 
-  // @Roles(Role.Admin)
-  @Get(":id")
+  @Get("/numeros")
+  async present() {
+    return await this.numeroService.present();
+  }
+
+  @Roles(Role.Admin)
+  @Get("/manager/numeros/:id")
   async show(
     @ParamId() id: number
   ) {
     return await this.numeroService.show(id);
   }
 
-  // @Roles(Role.Admin)
-  @Patch(":id")
+  @Roles(Role.Admin)
+  @Patch("/manager/numeros/:id")
   async update(
     @Body() updateNumeroDTO: UpdateNumeroDTO,
     @ParamId() id: number
@@ -40,8 +45,8 @@ export class NumeroController {
     return await this.numeroService.update(id, updateNumeroDTO);
   }
 
-  // @Roles(Role.Admin)
-  @Patch(":id/toggle-status")
+  @Roles(Role.Admin)
+  @Patch("/manager/numeros/:id/toggle-status")
   async status(
     @ParamId() id: number
   ) {
