@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
     forwardRef(() => UserModule), 
     forwardRef(() => AuthModule), 
     forwardRef(() => NumeroModule),
-    FaleConoscoModule,
+    forwardRef(() => FaleConoscoModule),
     ConfigModule.forRoot()
   ],
   controllers: [AppController],
