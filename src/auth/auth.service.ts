@@ -58,6 +58,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException("Email e/ou senha incorretos!");
     }
+    if (!user.status) {
+      throw new UnauthorizedException("Credenciais inválidas!");
+    }
     return this.createToken(user);
   }
 
@@ -74,8 +77,8 @@ export class AuthService {
 
   async reset(
     password: string, 
-    token: string) 
-  {
+    token: string
+  ) {
     // To-do: validação do token
     let id = 0;
     let user = await this.prisma.user.update({
