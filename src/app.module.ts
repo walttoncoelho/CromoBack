@@ -2,10 +2,10 @@ import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { FaleConoscoModule } from './fale-conosco/fale-conosco.module';
-import { NumeroModule } from './numero/numero.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { FaleConoscoModule } from './modules/fale-conosco/fale-conosco.module';
+import { NumeroModule } from './modules/numero/numero.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
