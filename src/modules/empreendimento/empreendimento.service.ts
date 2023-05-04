@@ -67,11 +67,12 @@ export class EmpreendimentoService {
   async show(id: number) {
     let empreendimento = await this.prisma.empreendimento.findUnique({
       where: { id },
-      include: { infraestrutura: true }
+      include: { infraestrutura: { include: { infraestrutura: true } } }
     });
     if (!empreendimento)
       throw new NotFoundException("Empreendimento não encontrado.");
-    return empreendimento;
+    let infraestrutura = empreendimento.infraestrutura.map(pivot => pivot.infraestrutura);
+    return { ...empreendimento, infraestrutura };
   }
 
   async update(
@@ -101,5 +102,12 @@ export class EmpreendimentoService {
     return await this.prisma.empreendimento.delete({
       where: { id: empreendimento.id }
     });
+  }
+
+  async addFoto(
+    id: number,
+    data: {} // AddFotoDTO
+  ) {
+
   }
 }
