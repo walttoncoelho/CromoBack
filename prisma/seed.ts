@@ -29,6 +29,30 @@ async function main() {
       },
     ]
   });
+  let infraestruturas = await prisma.infraestrutura.createMany({
+    data: [
+      {
+        icone: "icone_1.png",
+        titulo: "Asfalto e Meio-fio",
+      },
+      {
+        icone: "icone_2.png",
+        titulo: "Rede de Água",
+      },
+      {
+        icone: "icone_3.png",
+        titulo: "Energia Elétrica",
+      },
+      {
+        icone: "icone_4.png",
+        titulo: "Iluninação Pública",
+      },
+      {
+        icone: "icone_5.png",
+        titulo: "Galerias Pluviais",
+      },
+    ]
+  });
   let configuracoes = await prisma.configuracao.createMany({
     data: [
       {
