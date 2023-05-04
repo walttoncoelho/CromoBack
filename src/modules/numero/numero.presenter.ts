@@ -1,14 +1,21 @@
 import { Numero } from "@prisma/client";
-import { FormatadorValor } from "./util/formatador-valor";
 
 export class NumeroPresenter {
+  titulo: string;
   descricao: string;
-  valor: string;
+  lotes: string;
+  asfalto: string;
+  rua: string;
+  familias: string;
 
   constructor(
     numero: Numero
   ) {
+    this.titulo = numero.titulo;
     this.descricao = numero.descricao;
-    this.valor = FormatadorValor.new(numero).formatarNumero();
+    this.lotes = `${numero.lotes}`;
+    this.asfalto = `${numero.asfalto}`;
+    this.rua = `${numero.rua}`;
+    this.familias = `${numero.familias}`;
   }
 }

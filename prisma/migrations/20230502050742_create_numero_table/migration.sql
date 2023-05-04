@@ -1,12 +1,12 @@
 -- CreateTable
 CREATE TABLE `Numero` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `status` BOOLEAN NOT NULL,
     `titulo` VARCHAR(191) NOT NULL,
-    `descricao` VARCHAR(191) NOT NULL,
-    `valor` INTEGER NOT NULL,
-    `ordemExibicao` INTEGER NULL,
-    `formato` ENUM('EXATO', 'APROXIMADO', 'DISTANCIA', 'MONETARIO') NOT NULL DEFAULT 'EXATO',
+    `descricao` TEXT NOT NULL,
+    `lotes` INTEGER NOT NULL,
+    `asfalto` INTEGER NOT NULL,
+    `rua` INTEGER NOT NULL,
+    `familias` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 

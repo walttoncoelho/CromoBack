@@ -1,4 +1,4 @@
-import { FormatoNumero, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -18,36 +18,12 @@ async function main() {
   let numeros = await prisma.numero.createMany({
     data: [
       {
-        titulo: "Lotes Vendidos",
-        descricao: "Lotes vendidos",
-        valor: 1550,
-        status: true,
-        formato: FormatoNumero.APROXIMADO,
-        ordemExibicao: 1,
-      },
-      {
-        titulo: "Km Asfaltado",
-        descricao: "de Asfalto",
-        valor: 5000,
-        status: true,
-        formato: FormatoNumero.DISTANCIA,
-        ordemExibicao: 2,
-      },
-      {
-        titulo: "Opções de Rua",
-        descricao: "Opções de rua",
-        valor: 500,
-        status: true,
-        formato: FormatoNumero.APROXIMADO,
-        ordemExibicao: 3,
-      },
-      {
-        titulo: "Famílias Instaladas",
-        descricao: "Famílias instaladas",
-        valor: 1550,
-        status: true,
-        formato: FormatoNumero.EXATO,
-        ordemExibicao: 4,
+        titulo: "Nossos Big Numbers",
+        descricao: "Lorem ipsum dolor sit amet consectetur. Mauris ultrices aliquam justo id cras.",
+        lotes: 1550,
+        asfalto: 5000,
+        rua: 500,
+        familias: 1550,
       },
     ]
   });
