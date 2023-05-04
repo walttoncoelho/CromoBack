@@ -129,6 +129,8 @@ model FotoEmpreendimento {
 
 model Configuracao {
   id        Int      @id @default(autoincrement())
+  titulo    String
+  descricao String
   chave     String   @unique
   valor     String
   createdAt DateTime @default(now())
