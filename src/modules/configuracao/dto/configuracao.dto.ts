@@ -2,7 +2,10 @@ import { IsString } from "class-validator";
 
 export class ConfiguracaoDTO {
   @IsString()
-  chave: string;
+  titulo: string;
+
+  @IsString()
+  descricao: string;
 
   @IsString()
   valor: string;

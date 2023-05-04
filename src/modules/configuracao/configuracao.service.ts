@@ -41,4 +41,16 @@ export class ConfiguracaoService {
       where: { id: configuracao.id }
     });
   }
+
+  async updateByChave(
+    chave: string,
+    data: UpdateConfiguracaoDTO
+  ) {
+    let configuracao = await this.showByChave(chave);
+
+    return await this.prisma.configuracao.update({
+      data,
+      where: { id: configuracao.id }
+    });
+  }
 }

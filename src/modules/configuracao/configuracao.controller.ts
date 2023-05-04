@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   UseGuards,
 } from "@nestjs/common";
@@ -34,11 +35,26 @@ export class ConfiguracaoController {
     return await this.configuracaoService.show(id);
   }
 
+  @Get("/chave/:chave")
+  async showByChave(
+    @Param() { chave }
+  ) {
+    return await this.configuracaoService.showByChave(chave);
+  }
+
   @Patch(":id")
   async update(
     @Body() updateConfiguracaoDTO: UpdateConfiguracaoDTO,
     @ParamId() id: number
   ) {
     return await this.configuracaoService.update(id, updateConfiguracaoDTO);
+  }
+
+  @Patch("/chave/:chave")
+  async updateByChave(
+    @Body() updateConfiguracaoDTO: UpdateConfiguracaoDTO,
+    @Param() { chave }
+  ) {
+    return await this.configuracaoService.updateByChave(chave, updateConfiguracaoDTO);
   }
 }
