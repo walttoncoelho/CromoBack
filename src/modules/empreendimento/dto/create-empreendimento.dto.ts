@@ -1,7 +1,9 @@
 import { StatusDaConstrucao } from "@prisma/client";
-import { IsArray, IsBoolean, IsEnum, IsNumber, IsPositive, IsString } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsBoolean, IsEnum, IsNumber, IsString } from "class-validator";
 
 export class CreateEmpreendimentoDTO {
+  @Transform(({ value }) => Boolean(value))
   @IsBoolean()
   status: boolean;
 
@@ -20,20 +22,15 @@ export class CreateEmpreendimentoDTO {
   @IsString()
   slug: string;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
-  @IsPositive()
   lotes: number;
 
+  @Transform(({ value }) => Number(value))
   @IsNumber()
-  @IsPositive()
   areaLote: number;
 
-  @IsString()
-  logoEmpreendimento: string;
-
-  @IsString()
-  imagemPlantaBaixa: string;
-
-  @IsArray()
+  @Transform(({ value }) => value.map(Number))
+  @IsNumber({}, { each: true })
   infraestruturas: Array<number>;
 }

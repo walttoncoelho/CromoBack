@@ -6,13 +6,15 @@ import { EmpreendimentoController } from "./empreendimento.controller";
 import { EmpreendimentoService } from "./empreendimento.service";
 import { AuthModule } from "src/modules/auth/auth.module";
 import { InfraestruturaModule } from "../infraestrutura/infraestrutura.module";
+import { FileModule } from "../file/file.module";
 
 @Module({
   imports: [
     PrismaModule, 
     forwardRef(() => UserModule),
     forwardRef(() => InfraestruturaModule),
-    forwardRef(() => AuthModule)
+    forwardRef(() => AuthModule),
+    FileModule,
   ],
   controllers: [EmpreendimentoController],
   providers: [EmpreendimentoService],

@@ -33,7 +33,11 @@ export class EmpreendimentoService {
     return await this.prisma.empreendimento.findMany(query);
   }
 
-  async create(data: CreateEmpreendimentoDTO) {
+  async create(
+    data: CreateEmpreendimentoDTO,
+    logoEmpreendimento: string,
+    imagemPlantaBaixa: string
+  ) {
     let { infraestruturas, ...dados } = data;
     let vinculoInfraestrutura = infraestruturas.map(infraestruturaId => { return { 
       infraestrutura: { 
@@ -45,6 +49,8 @@ export class EmpreendimentoService {
     return await this.prisma.empreendimento.create({ 
       data: {
         ...dados,
+        logoEmpreendimento,
+        imagemPlantaBaixa,
         infraestrutura: {
           create: vinculoInfraestrutura
         }
