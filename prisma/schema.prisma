@@ -112,7 +112,7 @@ model InfraestruturaDosEmpreendimentos {
 model FotoEmpreendimento {
   id               Int            @id @default(autoincrement())
   status           Boolean
-  arquivo          String         @unique
+  arquivo          String
   ordemExibicao    Int?
   empreendimentoId Int
   createdAt        DateTime       @default(now())
