@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
+import { BannerModule } from './modules/banner/banner.module';
 import { ConfiguracaoModule } from './modules/configuracao/configuracao.module';
 import { EmpreendimentoModule } from './modules/empreendimento/empreendimento.module';
 import { FaleConoscoModule } from './modules/fale-conosco/fale-conosco.module';
@@ -17,6 +18,7 @@ import { UserModule } from './modules/user/user.module';
     forwardRef(() => FaleConoscoModule),
     forwardRef(() => EmpreendimentoModule),
     forwardRef(() => ConfiguracaoModule),
+    forwardRef(() => BannerModule),
     ConfigModule.forRoot()
   ],
   controllers: [AppController],

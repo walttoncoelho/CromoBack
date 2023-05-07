@@ -129,3 +129,22 @@ model Configuracao {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
+
+model Banner {
+  id             Int               @id @default(autoincrement())
+  categoria      CategoriaDoBanner @default(HOME)
+  titulo         String
+  inicioExibicao DateTime
+  fimExibicao    DateTime
+  redirectLink   String
+  desktop        String
+  mobile         String
+  ordemExibicao  Int?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @default(now())
+}
+
+enum CategoriaDoBanner {
+  HOME
+  SOBRE
+}
