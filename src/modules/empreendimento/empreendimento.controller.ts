@@ -26,12 +26,15 @@ import { FileFieldsInterceptor, FileInterceptor } from "@nestjs/platform-express
 import { FileService } from "../file/file.service";
 import { join } from "path";
 import { UploadIntoGaleriaDTO } from "./dto/upload-into-galeria.dto";
+import { ImagemId } from "./decorators/imagem-id.decorator";
+import { FotoEmpreendimentoService } from "../foto-empreendimento/foto-empreendimento.service";
 
 @Controller()
 export class EmpreendimentoController {
 
   constructor(
     private readonly empreendimentoService: EmpreendimentoService,
+    private readonly fotoEmpreendimentoService: FotoEmpreendimentoService,
     private readonly fileService: FileService
   ) { }
 
@@ -149,8 +152,6 @@ export class EmpreendimentoController {
     });
   }
 
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard, RoleGuard)
   @Get("/empreendimentos/:id/galeria/:imagem")
   async getFromGaleria(
     @ParamId() empreendimentoId: number,
@@ -161,5 +162,14 @@ export class EmpreendimentoController {
     let filepath = join("empreendimento", empreendimento.slug, "galeria", imagem);
     let arquivo = await this.fileService.retrieve(filepath);
     return response.sendFile(arquivo);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Patch("/manager/galeria/:imagem/toggle-status")
+  async statusImagem(
+    @ImagemId() imagemId: number
+  ) {
+    return await this.fotoEmpreendimentoService.toggleStatus(imagemId);
   }
 }

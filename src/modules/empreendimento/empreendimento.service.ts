@@ -25,7 +25,7 @@ export class EmpreendimentoService {
       },
       include: {
         infraestrutura: { include: { infraestrutura: true } },
-        galeria: true
+        galeria: { where:  { status: true } }
       }
     });
     return empreendimentos.map(empreendimento => {
