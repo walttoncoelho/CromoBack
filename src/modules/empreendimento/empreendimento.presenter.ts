@@ -1,13 +1,40 @@
 import { Empreendimento } from "@prisma/client";
+import { StatusDaConstrucao } from "src/enums/status-da-construcao.enum";
+import { FotoEmpreendimentoPresenter } from "../foto-empreendimento/foto-empreendimento.presenter";
+import { InfraestruturaPresenter } from "../infraestrutura/infraestrutura.presenter";
 
 export class EmpreendimentoPresenter {
-  // descricao: string;
-  // valor: string;
+  id: number;
+  status: boolean;
+  statusDaConstrucao: string;
+  titulo: string;
+  descricao: string;
+  tipoEmpreendimento: string;
+  slug: string;
+  lotes: number;
+  areaLote: number;
+  logoEmpreendimento: string;
+  imagemPlantaBaixa: string;
+  infraestrutura: Array<InfraestruturaPresenter>;
+  galeria: Array<FotoEmpreendimentoPresenter>;
 
   constructor(
-    numero: Empreendimento
+    empreendimento: Empreendimento,
+    infraestrutura: Array<InfraestruturaPresenter>,
+    galeria: Array<FotoEmpreendimentoPresenter>
   ) {
-    // this.descricao = numero.descricao;
-    // this.valor = FormatadorValor.new(numero).formatarNumero();
+    this.id = empreendimento.id;
+    this.status = empreendimento.status;
+    this.statusDaConstrucao = StatusDaConstrucao[empreendimento.statusDaConstrucao];
+    this.titulo = empreendimento.titulo;
+    this.descricao = empreendimento.descricao;
+    this.tipoEmpreendimento = empreendimento.tipoEmpreendimento;
+    this.slug = empreendimento.slug;
+    this.lotes = empreendimento.lotes;
+    this.areaLote = empreendimento.areaLote;
+    this.logoEmpreendimento = empreendimento.logoEmpreendimento;
+    this.imagemPlantaBaixa = empreendimento.imagemPlantaBaixa;
+    this.infraestrutura = infraestrutura;
+    this.galeria = galeria;
   }
 }

@@ -23,8 +23,16 @@ export class EmpreendimentoService {
       where: {
         status: true
       },
+      include: {
+        infraestrutura: { include: { infraestrutura: true } },
+        galeria: true
+      }
     });
-    return empreendimentos.map(empreendimento => new EmpreendimentoPresenter(empreendimento));
+    return empreendimentos.map(empreendimento => {
+      let infraestrutura = empreendimento.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
+      let galeria = empreendimento.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
+      return new EmpreendimentoPresenter(empreendimento, infraestrutura, galeria);
+    });
   }
 
   async list() {
@@ -78,16 +86,10 @@ export class EmpreendimentoService {
   async show(id: number) {
     let empreendimento = await this.prisma.empreendimento.findUnique({
       where: { id },
-      include: { 
-        infraestrutura: { include: { infraestrutura: true } },
-        galeria: true
-      }
     });
     if (!empreendimento)
       throw new NotFoundException("Empreendimento não encontrado.");
-    let infraestrutura = empreendimento.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
-    let galeria = empreendimento.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
-    return { ...empreendimento, infraestrutura, galeria };
+    return empreendimento;
   }
 
   async update(
