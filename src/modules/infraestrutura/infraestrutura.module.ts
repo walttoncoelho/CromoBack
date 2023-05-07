@@ -5,12 +5,14 @@ import { PrismaModule } from "src/prisma/prisma.module";
 import { InfraestruturaController } from "./infraestrutura.controller";
 import { InfraestruturaService } from "./infraestrutura.service";
 import { AuthModule } from "src/modules/auth/auth.module";
+import { FileModule } from "../file/file.module";
 
 @Module({
   imports: [
     PrismaModule, 
     forwardRef(() => UserModule),
-    forwardRef(() => AuthModule)
+    forwardRef(() => AuthModule),
+    FileModule
   ],
   controllers: [InfraestruturaController],
   providers: [InfraestruturaService],
