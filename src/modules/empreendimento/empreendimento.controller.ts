@@ -3,8 +3,11 @@ import {
   Controller, 
   Delete, 
   Get, 
+  Param, 
   Patch,
   Post,
+  Res,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -19,9 +22,10 @@ import { RoleGuard } from "src/guards/role.guard";
 import { CreateEmpreendimentoDTO } from "./dto/create-empreendimento.dto";
 import { UpdateEmpreendimentoDTO } from "./dto/update-empreendimento.dto";
 import { EmpreendimentoService } from "./empreendimento.service";
-import { FileFieldsInterceptor } from "@nestjs/platform-express";
+import { FileFieldsInterceptor, FileInterceptor } from "@nestjs/platform-express";
 import { FileService } from "../file/file.service";
 import { join } from "path";
+import { UploadIntoGaleriaDTO } from "./dto/upload-into-galeria.dto";
 
 @Controller()
 export class EmpreendimentoController {
@@ -68,6 +72,20 @@ export class EmpreendimentoController {
 
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
+  @Get("/empreendimentos/:id/imagem/:imagem")
+  async getImagem(
+    @ParamId() empreendimentoId: number,
+    @Param("imagem") imagem: string,
+    @Res() response
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let filepath = join("empreendimento", empreendimento.slug, imagem);
+    let arquivo = await this.fileService.retrieve(filepath);
+    return response.sendFile(arquivo);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/empreendimento/create-options")
   async createOptions() {
     return await this.empreendimentoService.createOptions();
@@ -108,5 +126,40 @@ export class EmpreendimentoController {
     @ParamId() id: number
   ) {
     return await this.empreendimentoService.delete(id);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Post("/manager/empreendimentos/:id/galeria")
+  @UseInterceptors(FileInterceptor("imagem"))
+  async uploadIntoGaleria(
+    @ParamId() empreendimentoId: number,
+    @Body() uploadIntoGaleria: UploadIntoGaleriaDTO,
+    @UploadedFile() foto: Express.Multer.File
+
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let directory = join("empreendimento", empreendimento.slug, "galeria");
+    let arquivo = await this.fileService.upload(directory, foto);
+    return await this.empreendimentoService.uploadIntoGaleria({
+      arquivo,
+      empreendimentoId,
+      ...uploadIntoGaleria
+    });
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get("/empreendimentos/:id/galeria/:imagem")
+  async getFromGaleria(
+    @ParamId() empreendimentoId: number,
+    @Param("imagem") imagem: string,
+    @Res() response
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let filepath = join("empreendimento", empreendimento.slug, "galeria", imagem);
+    let arquivo = await this.fileService.retrieve(filepath);
+    return response.sendFile(arquivo);
   }
 }

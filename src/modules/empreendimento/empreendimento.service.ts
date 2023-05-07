@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { StatusDaConstrucao } from "src/enums/status-da-construcao.enum";
 import { PrismaService } from "src/prisma/prisma.service";
+import { CreateFotoEmpreendimentoDTO } from "../foto-empreendimento/dto/create-foto-empreendimento.dto";
+import { FotoEmpreendimentoPresenter } from "../foto-empreendimento/foto-empreendimento.presenter";
+import { FotoEmpreendimentoService } from "../foto-empreendimento/foto-empreendimento.service";
+import { InfraestruturaPresenter } from "../infraestrutura/infraestrutura.presenter";
 import { InfraestruturaService } from "../infraestrutura/infraestrutura.service";
 import { CreateEmpreendimentoDTO } from "./dto/create-empreendimento.dto";
 import { UpdateEmpreendimentoDTO } from "./dto/update-empreendimento.dto";
@@ -10,7 +14,8 @@ import { EmpreendimentoPresenter } from "./empreendimento.presenter";
 export class EmpreendimentoService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly infraestruturaService: InfraestruturaService
+    private readonly infraestruturaService: InfraestruturaService,
+    private readonly fotoEmpreendimentoService: FotoEmpreendimentoService
   ) { }
 
   async present() {
@@ -73,12 +78,16 @@ export class EmpreendimentoService {
   async show(id: number) {
     let empreendimento = await this.prisma.empreendimento.findUnique({
       where: { id },
-      include: { infraestrutura: { include: { infraestrutura: true } } }
+      include: { 
+        infraestrutura: { include: { infraestrutura: true } },
+        galeria: true
+      }
     });
     if (!empreendimento)
       throw new NotFoundException("Empreendimento não encontrado.");
-    let infraestrutura = empreendimento.infraestrutura.map(pivot => pivot.infraestrutura);
-    return { ...empreendimento, infraestrutura };
+    let infraestrutura = empreendimento.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
+    let galeria = empreendimento.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
+    return { ...empreendimento, infraestrutura, galeria };
   }
 
   async update(
@@ -110,10 +119,9 @@ export class EmpreendimentoService {
     });
   }
 
-  async addFoto(
-    id: number,
-    data: {} // AddFotoDTO
+  async uploadIntoGaleria(
+    createFotoEmpreendimentoDTO: CreateFotoEmpreendimentoDTO
   ) {
-
+    return await this.fotoEmpreendimentoService.create(createFotoEmpreendimentoDTO);
   }
 }

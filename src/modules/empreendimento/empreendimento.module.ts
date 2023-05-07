@@ -7,6 +7,7 @@ import { EmpreendimentoService } from "./empreendimento.service";
 import { AuthModule } from "src/modules/auth/auth.module";
 import { InfraestruturaModule } from "../infraestrutura/infraestrutura.module";
 import { FileModule } from "../file/file.module";
+import { FotoEmpreendimentoModule } from "../foto-empreendimento/foto-empreendimento.module";
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { FileModule } from "../file/file.module";
     forwardRef(() => InfraestruturaModule),
     forwardRef(() => AuthModule),
     FileModule,
+    FotoEmpreendimentoModule
   ],
   controllers: [EmpreendimentoController],
   providers: [EmpreendimentoService],

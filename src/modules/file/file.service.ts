@@ -33,4 +33,18 @@ export class FileService {
       return "";
     }
   }
+
+  async retrieve(
+    filename: string
+  ): Promise<string> {
+    let path = join(
+      /* file */ __dirname,
+      /* modules */ "..",
+      /* src */ "..",
+      /* root */ "..",
+      "storage",
+      filename
+    );
+    return fs.existsSync(path) ? path : "";
+  }
 }
