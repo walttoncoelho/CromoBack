@@ -32,7 +32,7 @@ export class EmpreendimentoModule
         method: RequestMethod.ALL
       },
       {
-        path: "/manager/empreendimentos/:id/toggle-status",
+        path: "/manager/empreendimento/:id/toggle-status",
         method: RequestMethod.ALL
       },
     );

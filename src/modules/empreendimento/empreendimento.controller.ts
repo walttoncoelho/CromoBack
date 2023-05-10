@@ -115,7 +115,7 @@ export class EmpreendimentoController {
 
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
-  @Patch("/manager/empreendimentos/:id/toggle-status")
+  @Patch("/manager/empreendimento/:id/toggle-status")
   async status(
     @ParamId() id: number
   ) {
