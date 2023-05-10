@@ -12,6 +12,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly userService: UserService
+    // private readonly mailer: MailerService,
   ) {}
 
   createToken(user: User) {
@@ -75,21 +76,50 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException("Email incorreto!");
     }
-    // To-do: enviar o email
-    return user;
+    let token = this.jwtService.sign({
+      id: user.id,
+    }, {
+      expiresIn: "5 minutes",
+      subject: String(user.id),
+      issuer: "forget",
+      audience: "users"
+    })
+    // await this.mailer.sendMail({
+    //   subject: "Recuperação de senha",
+    //   to: user.email,
+    //   template: "forget",
+    //   context: {
+    //     name: user.name,
+    //     token
+    //   }
+    // });
+    return { token };
   }
 
   async reset(
-    password: string, 
+    newPassword: string, 
     token: string
   ) {
-    // To-do: validação do token
-    let id = 0;
-    let user = await this.prisma.user.update({
-      where: { id },
-      data: { password }
-    });
-    return await this.createToken(user);
+    try {
+      let data: { id: number } = this.jwtService.verify(token, {
+        issuer: "forget",
+        audience: "users"
+      });
+      let id = Number(data.id);
+      if (isNaN(id)) {
+        throw new BadRequestException("Token inválido!");
+      }
+      let salt = await bcrypt.genSalt();
+      let password = await bcrypt.hash(newPassword, salt);
+      let user = await this.prisma.user.update({
+        where: { id },
+        data: { password }
+      });
+      return this.createToken(user);
+    }
+    catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 
   async register(data: AuthRegisterDTO) 
