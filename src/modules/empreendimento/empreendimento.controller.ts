@@ -1,11 +1,14 @@
 import { 
   Body, 
   Controller, 
+  DefaultValuePipe, 
   Delete, 
   Get, 
   Param, 
+  ParseIntPipe, 
   Patch,
   Post,
+  Query,
   Res,
   UploadedFile,
   UploadedFiles,
@@ -46,8 +49,14 @@ export class EmpreendimentoController {
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/empreendimentos")
-  async all() {
-    return await this.empreendimentoService.list();
+  async all(
+    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) ṕagina: number,
+    @Query("empreendimentosPorPagina", new DefaultValuePipe(25), ParseIntPipe) empreendimentosPorPagina: number
+  ) {
+    return await this.empreendimentoService.list(
+      ṕagina,
+      empreendimentosPorPagina
+    );
   }
 
   @Roles(Role.Admin)

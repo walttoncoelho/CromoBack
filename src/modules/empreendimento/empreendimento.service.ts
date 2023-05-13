@@ -35,15 +35,31 @@ export class EmpreendimentoService {
     });
   }
 
-  async list() {
+  async list(pagina: number | null = null, empreendimentosPorPagina: number | null = null) {
+    if (!pagina) pagina = 1;
+    if (!empreendimentosPorPagina) empreendimentosPorPagina = 25;
+
+    let contagem = await this.prisma.empreendimento.count();
+    let totalDePaginas = Math.ceil(contagem / empreendimentosPorPagina);
+    if (pagina > totalDePaginas) {
+      throw new NotFoundException("Página inválida");
+    }
     let statusSort: object = {
       status: "desc"
     };
     let orderBy = [ 
       statusSort, 
     ];
-    let query = { orderBy };
-    return await this.prisma.empreendimento.findMany(query);
+    let skip = empreendimentosPorPagina * (pagina - 1); 
+    let take = empreendimentosPorPagina;
+    let query = { orderBy, skip, take };
+    let empreendimentos = await this.prisma.empreendimento.findMany(query);
+    return {
+      empreendimentos,
+      pagina,
+      empreendimentosPorPagina,
+      totalDePaginas
+    }
   }
 
   async create(
