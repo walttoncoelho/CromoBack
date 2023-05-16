@@ -1,4 +1,5 @@
 import { 
+  BadRequestException,
   Body, 
   Controller, 
   DefaultValuePipe, 
@@ -42,19 +43,30 @@ export class EmpreendimentoController {
   ) { }
 
   @Get("/empreendimentos")
-  async present() {
-    return await this.empreendimentoService.present();
+  async present(
+    @Query("cursor", new DefaultValuePipe(null)) cursorQuery: string | null,
+    @Query("empreendimentosPorPagina", new DefaultValuePipe(25), ParseIntPipe) empreendimentosPorPagina: number
+  ) {
+    let cursorNumber = Number.parseInt(cursorQuery);
+    let cursor = Number.isNaN(cursorNumber) ? null : cursorNumber;
+    if (cursorQuery !== null && cursor === null) {
+      throw new BadRequestException("O cursor deve ser um número válido");
+    }
+    return await this.empreendimentoService.present(
+      cursor,
+      empreendimentosPorPagina
+    );
   }
 
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/empreendimentos")
   async all(
-    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) ṕagina: number,
+    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) pagina: number,
     @Query("empreendimentosPorPagina", new DefaultValuePipe(25), ParseIntPipe) empreendimentosPorPagina: number
   ) {
     return await this.empreendimentoService.list(
-      ṕagina,
+      pagina,
       empreendimentosPorPagina
     );
   }

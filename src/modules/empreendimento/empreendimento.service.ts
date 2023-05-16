@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { StatusDaConstrucao } from "src/enums/status-da-construcao.enum";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateFotoEmpreendimentoDTO } from "../foto-empreendimento/dto/create-foto-empreendimento.dto";
@@ -18,21 +18,39 @@ export class EmpreendimentoService {
     private readonly fotoEmpreendimentoService: FotoEmpreendimentoService
   ) { }
 
-  async present() {
-    let empreendimentos = await this.prisma.empreendimento.findMany({
-      where: {
-        status: true
-      },
+  async present(cursor: number | null = null, empreendimentosPorPagina: number | null = null) {
+    if (cursor !== null && cursor < 1) {
+      throw new BadRequestException("Cursor inválido");
+    }
+    if (!empreendimentosPorPagina) empreendimentosPorPagina = 3;
+
+    let where = cursor === null 
+      ? { status: true }
+      : { status: true, id: { lte: cursor } };
+    let resultados = await this.prisma.empreendimento.findMany({
+      where,
+      orderBy: [
+        {
+          id: "desc"
+        },
+      ],
       include: {
         infraestrutura: { include: { infraestrutura: true } },
         galeria: { where:  { status: true } }
-      }
+      },
+      take: empreendimentosPorPagina
     });
-    return empreendimentos.map(empreendimento => {
-      let infraestrutura = empreendimento.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
-      let galeria = empreendimento.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
-      return new EmpreendimentoPresenter(empreendimento, infraestrutura, galeria);
+    let empreendimentos = resultados.map(resultado => {
+      let infraestrutura = resultado.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
+      let galeria = resultado.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
+      return new EmpreendimentoPresenter(resultado, infraestrutura, galeria);
     });
+    let ultimoElemento = empreendimentos.length - 1;
+    return {
+      empreendimentos,
+      cursorAtual: empreendimentos[0] ? (empreendimentos[0].id) : (cursor),
+      proximoCursor: empreendimentos[ultimoElemento] ? (empreendimentos[ultimoElemento].id - 1) : null
+    }
   }
 
   async list(pagina: number | null = null, empreendimentosPorPagina: number | null = null) {
