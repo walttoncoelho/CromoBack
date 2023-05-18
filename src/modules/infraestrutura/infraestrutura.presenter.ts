@@ -1,4 +1,5 @@
 import { Infraestrutura } from "@prisma/client";
+import { applicationUrl } from "src/main";
 
 export class InfraestruturaPresenter {
   id: number;
@@ -9,7 +10,7 @@ export class InfraestruturaPresenter {
     infraestrutura: Infraestrutura,
   ) {
     this.id = infraestrutura.id;
-    this.icone = infraestrutura.icone;
+    this.icone = `${applicationUrl}/infraestruturas/${infraestrutura.id}/icone`
     this.titulo = infraestrutura.titulo;
   }
 }

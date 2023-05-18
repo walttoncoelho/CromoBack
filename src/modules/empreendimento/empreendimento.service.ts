@@ -110,7 +110,8 @@ export class EmpreendimentoService {
       (status, statusAtual) => [...status, { valor: statusAtual[0], texto: statusAtual[1] }],
       []
     );
-    let infraestruturas = await this.infraestruturaService.list();
+    let resultados = await this.infraestruturaService.list();
+    let infraestruturas = resultados.map(resultado => new InfraestruturaPresenter(resultado))
     return {
       statusDaConstrucao,
       infraestruturas
