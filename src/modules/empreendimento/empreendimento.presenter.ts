@@ -34,7 +34,7 @@ export class EmpreendimentoPresenter {
     this.lotes = empreendimento.lotes;
     this.areaLote = empreendimento.areaLote;
     this.logoEmpreendimento = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.logoEmpreendimento}`;
-    this.imagemPlantaBaixa = empreendimento.imagemPlantaBaixa;
+    this.imagemPlantaBaixa = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.imagemPlantaBaixa}`;
     this.infraestrutura = infraestrutura;
     this.galeria = galeria;
   }
