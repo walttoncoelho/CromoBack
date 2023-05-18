@@ -1,5 +1,6 @@
 import { Empreendimento } from "@prisma/client";
 import { StatusDaConstrucao } from "src/enums/status-da-construcao.enum";
+import { applicationUrl } from "src/main";
 import { FotoEmpreendimentoPresenter } from "../foto-empreendimento/foto-empreendimento.presenter";
 import { InfraestruturaPresenter } from "../infraestrutura/infraestrutura.presenter";
 
@@ -32,7 +33,7 @@ export class EmpreendimentoPresenter {
     this.slug = empreendimento.slug;
     this.lotes = empreendimento.lotes;
     this.areaLote = empreendimento.areaLote;
-    this.logoEmpreendimento = empreendimento.logoEmpreendimento;
+    this.logoEmpreendimento = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.logoEmpreendimento}`;
     this.imagemPlantaBaixa = empreendimento.imagemPlantaBaixa;
     this.infraestrutura = infraestrutura;
     this.galeria = galeria;
