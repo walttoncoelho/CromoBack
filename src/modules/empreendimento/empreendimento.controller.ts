@@ -94,8 +94,6 @@ export class EmpreendimentoController {
     );
   }
 
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard, RoleGuard)
   @Get("/empreendimentos/:id/imagem/:imagem")
   async getImagem(
     @ParamId() empreendimentoId: number,
