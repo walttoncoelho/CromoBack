@@ -91,6 +91,12 @@ async function main() {
         chave: "email_account",
         valor: "contabilidade@lavronorte.com.br"
       },
+      {
+        titulo: "Whatsapp",
+        descricao: "Número para contato pelo whatsapp",
+        chave: "whatsapp_number",
+        valor: "5599992239558"
+      }
     ]
   });
 }

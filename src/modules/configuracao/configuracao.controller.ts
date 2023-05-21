@@ -85,4 +85,36 @@ export class ConfiguracaoController {
       link: facebook.valor
     }
   }
+
+  @Get("whatsapp")
+  async whatsapp() {
+    let whatsapp = await this.configuracaoService.showByChave("whatsapp_number");
+    return {
+      titulo: whatsapp.titulo,
+      descricao: whatsapp.descricao,
+      link: `https://api.whatsapp.com/send?phone=${whatsapp.valor}`,
+      numero: this.formatPhoneNumber(whatsapp.valor)
+    };
+  }
+
+  private formatPhoneNumber(phoneNumber: string): string 
+  {
+    let countryCode = phoneNumber.slice(0, 2);
+    let areaCode = phoneNumber.slice(2, 4);
+    let firstPart = phoneNumber.slice(4, 9);
+    let secondPart = phoneNumber.slice(9);
+
+    return `+${countryCode} (${areaCode}) ${firstPart}-${secondPart}`;
+  }
+
+  @Get("email")
+  async email() {
+    let email = await this.configuracaoService.showByChave("email_account");
+    return {
+      titulo: email.titulo,
+      descricao: email.descricao,
+      link: `mailto:${email.valor}`,
+      endereco: email.valor
+    };
+  }
 }
