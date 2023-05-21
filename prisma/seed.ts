@@ -77,19 +77,19 @@ async function main() {
         titulo: "Instagram",
         descricao: "Conta disponível",
         chave: "instagram_account",
-        valor: "@cromo"
+        valor: "https://www.instagram.com/cromoconstrutora/"
       },
       {
-        titulo: "YouTube",
-        descricao: "Canal do site",
-        chave: "youtube_account",
-        valor: "cromo"
+        titulo: "Facebook",
+        descricao: "Conta no disponível",
+        chave: "facebook_account",
+        valor: "https://www.facebook.com/cromoconstrutora"
       },
       {
         titulo: "Email",
         descricao: "Conta disponível para email",
         chave: "email_account",
-        valor: "cromo@gmail.com"
+        valor: "contabilidade@lavronorte.com.br"
       },
     ]
   });

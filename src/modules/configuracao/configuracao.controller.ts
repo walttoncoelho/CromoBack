@@ -14,35 +14,41 @@ import { RoleGuard } from "src/guards/role.guard";
 import { UpdateConfiguracaoDTO } from "./dto/update-configuracao.dto";
 import { ConfiguracaoService } from "./configuracao.service";
 
-@Roles(Role.Admin)
-@UseGuards(AuthGuard, RoleGuard)
-@Controller("/manager/configuracoes")
+@Controller()
 export class ConfiguracaoController {
 
   constructor(
     private readonly configuracaoService: ConfiguracaoService
   ) { }
 
-  @Get()
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get("/manager/configuracoes")
   async all() {
     return await this.configuracaoService.list();
   }
 
-  @Get(":id")
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get("/manager/configuracoes/:id")
   async show(
     @ParamId() id: number
   ) {
     return await this.configuracaoService.show(id);
   }
 
-  @Get("/chave/:chave")
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get("/manager/configuracoes/chave/:chave")
   async showByChave(
     @Param() { chave }
   ) {
     return await this.configuracaoService.showByChave(chave);
   }
 
-  @Patch(":id")
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Patch("/manager/configuracoes/:id")
   async update(
     @Body() updateConfiguracaoDTO: UpdateConfiguracaoDTO,
     @ParamId() id: number
@@ -50,11 +56,33 @@ export class ConfiguracaoController {
     return await this.configuracaoService.update(id, updateConfiguracaoDTO);
   }
 
-  @Patch("/chave/:chave")
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Patch("/manager/configuracoes/chave/:chave")
   async updateByChave(
     @Body() updateConfiguracaoDTO: UpdateConfiguracaoDTO,
     @Param() { chave }
   ) {
     return await this.configuracaoService.updateByChave(chave, updateConfiguracaoDTO);
+  }
+
+  @Get("instagram")
+  async instagram() {
+    let instagram = await this.configuracaoService.showByChave("instagram_account");
+    return {
+      titulo: instagram.titulo,
+      descricao: instagram.descricao,
+      link: instagram.valor
+    };
+  }
+
+  @Get("facebook")
+  async facebook() {
+    let facebook = await this.configuracaoService.showByChave("facebook_account");
+    return {
+      titulo: facebook.titulo,
+      descricao: facebook.descricao,
+      link: facebook.valor
+    }
   }
 }
