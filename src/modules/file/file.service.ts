@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 import * as fs from "fs";
+import * as bcrypt from "bcrypt";
+import * as Path from "path";
 
 @Injectable()
 export class FileService {
@@ -9,12 +11,9 @@ export class FileService {
     directory: string,
     file: Express.Multer.File
   ): Promise<string> {
-    let filename = file.originalname;
+    let filename = await this.generateFilename(file);
     let path = join(
-      /* file */ __dirname,
-      /* modules */ "..",
-      /* src */ "..",
-      /* root */ "..",
+      process.cwd(),
       "storage",
       directory
     );
@@ -38,13 +37,18 @@ export class FileService {
     filename: string
   ): Promise<string> {
     let path = join(
-      /* file */ __dirname,
-      /* modules */ "..",
-      /* src */ "..",
-      /* root */ "..",
+      process.cwd(),
       "storage",
       filename
     );
+    console.log(path);
     return fs.existsSync(path) ? path : "";
+  }
+
+  private async generateFilename(file: Express.Multer.File) {
+    let salt = await bcrypt.genSalt();
+    let extension = Path.extname(file.originalname);
+    let hash = await bcrypt.hash(file.originalname, salt);
+    return `${hash.replace(/[^\w\s]/gi, '')}${extension}`;
   }
 }
