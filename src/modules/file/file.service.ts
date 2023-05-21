@@ -41,7 +41,6 @@ export class FileService {
       "storage",
       filename
     );
-    console.log(path);
     return fs.existsSync(path) ? path : "";
   }
 
