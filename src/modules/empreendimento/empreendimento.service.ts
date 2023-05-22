@@ -53,6 +53,19 @@ export class EmpreendimentoService {
     }
   }
 
+  async presentOneById(id: number) {
+    let empreendimento = await this.prisma.empreendimento.findUnique({
+      where: { id },
+      include: {
+        infraestrutura: { include: { infraestrutura: true } },
+        galeria: { where: { status: true } }
+      },
+    });
+    let infraestrutura = empreendimento.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
+    let galeria = empreendimento.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
+    return new EmpreendimentoPresenter(empreendimento, infraestrutura, galeria);
+  }
+
   async list(pagina: number | null = null, empreendimentosPorPagina: number | null = null) {
     if (!pagina) pagina = 1;
     if (!empreendimentosPorPagina) empreendimentosPorPagina = 25;
@@ -116,6 +129,15 @@ export class EmpreendimentoService {
       statusDaConstrucao,
       infraestruturas
     };
+  }
+
+  async showBySlug(slug: string) {
+    let empreendimento = await this.prisma.empreendimento.findUnique({
+      where: { slug }
+    });
+    if (!empreendimento)
+      throw new NotFoundException("Empreendimento não encontrado.");
+    return empreendimento;
   }
 
   async show(id: number) {

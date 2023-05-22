@@ -1,4 +1,5 @@
 import { FotoEmpreendimento } from "@prisma/client";
+import { applicationUrl } from "src/main";
 
 export class FotoEmpreendimentoPresenter {
   imagem: string;
@@ -6,6 +7,6 @@ export class FotoEmpreendimentoPresenter {
   constructor(
     fotoEmpreendimento: FotoEmpreendimento,
   ) {
-    this.imagem = fotoEmpreendimento.arquivo;
+    this.imagem = `${applicationUrl}/empreendimentos/${fotoEmpreendimento.empreendimentoId}/galeria/${fotoEmpreendimento.arquivo}`
   }
 }

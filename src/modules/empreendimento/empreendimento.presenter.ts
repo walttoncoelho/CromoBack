@@ -13,7 +13,7 @@ export class EmpreendimentoPresenter {
   tipoEmpreendimento: string;
   slug: string;
   lotes: number;
-  areaLote: number;
+  areaLote: string;
   logoEmpreendimento: string;
   imagemPlantaBaixa: string;
   infraestrutura: Array<InfraestruturaPresenter>;
@@ -32,7 +32,7 @@ export class EmpreendimentoPresenter {
     this.tipoEmpreendimento = empreendimento.tipoEmpreendimento;
     this.slug = empreendimento.slug;
     this.lotes = empreendimento.lotes;
-    this.areaLote = empreendimento.areaLote;
+    this.areaLote = `${empreendimento.areaLote}m²`;
     this.logoEmpreendimento = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.logoEmpreendimento}`;
     this.imagemPlantaBaixa = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.imagemPlantaBaixa}`;
     this.infraestrutura = infraestrutura;

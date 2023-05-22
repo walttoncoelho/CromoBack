@@ -58,6 +58,14 @@ export class EmpreendimentoController {
     );
   }
 
+  @Get("/empreendimentos/:empreendimentoSlug")
+  async showBySlug(
+    @Param("empreendimentoSlug") empreendimentoSlug: string
+  ) {
+    let empreendimento = await this.empreendimentoService.showBySlug(empreendimentoSlug);
+    return this.empreendimentoService.presentOneById(empreendimento.id);
+  }
+
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/empreendimentos")

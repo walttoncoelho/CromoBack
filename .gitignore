@@ -1,6 +1,6 @@
 # environment
 .env
-storage
+assets
 
 # compiled output
 /dist
