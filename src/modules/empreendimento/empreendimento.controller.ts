@@ -85,20 +85,23 @@ export class EmpreendimentoController {
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'logoEmpreendimento', maxCount: 1 },
     { name: 'imagemPlantaBaixa', maxCount: 1 },
+    { name: 'imagemDestaque', maxCount: 1 },
   ]))
   @Post("/manager/empreendimentos")
   async create(
     @Body() createEmpreendimentoDTO: CreateEmpreendimentoDTO,
     @UploadedFiles() imagens: { 
-      logoEmpreendimento: Express.Multer.File[], 
-      imagemPlantaBaixa: Express.Multer.File[] 
+      logoEmpreendimento: Express.Multer.File[],
+      imagemPlantaBaixa: Express.Multer.File[],
+      imagemDestaque: Express.Multer.File[] 
     },
   ) {
     let directory = join("empreendimento", createEmpreendimentoDTO.slug);
     return await this.empreendimentoService.create(
       createEmpreendimentoDTO,
       await this.fileService.upload(directory, imagens.logoEmpreendimento[0]),
-      await this.fileService.upload(directory, imagens.imagemPlantaBaixa[0])
+      await this.fileService.upload(directory, imagens.imagemPlantaBaixa[0]),
+      await this.fileService.upload(directory, imagens.imagemDestaque[0])
     );
   }
 

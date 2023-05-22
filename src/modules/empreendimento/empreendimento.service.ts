@@ -96,7 +96,8 @@ export class EmpreendimentoService {
   async create(
     data: CreateEmpreendimentoDTO,
     logoEmpreendimento: string,
-    imagemPlantaBaixa: string
+    imagemPlantaBaixa: string,
+    imagemDestaque: string
   ) {
     let { infraestruturas, ...dados } = data;
     let vinculoInfraestrutura = infraestruturas.map(infraestruturaId => { return { 
@@ -111,6 +112,7 @@ export class EmpreendimentoService {
         ...dados,
         logoEmpreendimento,
         imagemPlantaBaixa,
+        imagemDestaque,
         infraestrutura: {
           create: vinculoInfraestrutura
         }

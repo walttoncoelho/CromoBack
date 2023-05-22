@@ -16,6 +16,7 @@ export class EmpreendimentoPresenter {
   areaLote: string;
   logoEmpreendimento: string;
   imagemPlantaBaixa: string;
+  imagemDestaque: string;
   infraestrutura: Array<InfraestruturaPresenter>;
   galeria: Array<FotoEmpreendimentoPresenter>;
 
@@ -35,6 +36,7 @@ export class EmpreendimentoPresenter {
     this.areaLote = `${empreendimento.areaLote}m²`;
     this.logoEmpreendimento = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.logoEmpreendimento}`;
     this.imagemPlantaBaixa = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.imagemPlantaBaixa}`;
+    this.imagemDestaque = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.imagemDestaque}`;
     this.infraestrutura = infraestrutura;
     this.galeria = galeria;
   }

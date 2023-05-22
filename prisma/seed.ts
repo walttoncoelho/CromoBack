@@ -65,6 +65,7 @@ async function main() {
       areaLote: 255,
       logoEmpreendimento: "2b10sZvrXYjKIE11cdPQEid3RuZUnWzklBtt94BFO06vqK9EhlzaQqaLS.png",
       imagemPlantaBaixa: "2b10DPPAdrb4209abaii8cIZQOtdKnNUvElKxOKMn1ok1X47bGWSA6oHO.png",
+      imagemDestaque: "KJAHsd981235lkahjAFKSD1Olkjf14098AQSJKLD.png"
     }
   });
   let galeria = await prisma.fotoEmpreendimento.createMany({

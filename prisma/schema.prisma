@@ -77,6 +77,7 @@ model Empreendimento {
   areaLote           Float
   logoEmpreendimento String
   imagemPlantaBaixa  String
+  imagemDestaque     String
   createdAt          DateTime                           @default(now())
   updatedAt          DateTime                           @default(now())
   galeria            FotoEmpreendimento[]
