@@ -26,6 +26,26 @@ async function main() {
         redirectLink: "www.google.com",
         desktop: "2b10mD0s4XpCHB8VRmjHNbkB59PowcgO0G7XmP4SvFoOg55EZzTW9Ua.png",
         mobile: "2b10Gn3CvXzLrgDa6tkO9Xtn9e8ec6SxGjZJf7bFGkuKNl7co7pF7FUjW.png",
+      },
+      {
+        status: true,
+        categoria: "SOBRE_TOPO",
+        titulo: "Banner Principal da página Sobre",
+        redirectLink: "www.google.com",
+        inicioExibicao: "2023-04-22T00:00:00.000Z",
+        fimExibicao: "2023-05-12T00:00:00.000Z",
+        desktop: "2b102KBkpiSKCSJ4WLJxpqXJaGqMxfcWd6Rl9uqr6Tj7jlJ4jzxwi.png",
+        mobile: "2b1016D0ww90xPEXclnyPTDbZ1sGwQSRXvVMFzNLAtkJMFket0R7gu.png",
+      },
+      {
+        status: true,
+        categoria: "SOBRE_SECUNDARIO",
+        titulo: "Banner Secundário da página Sobre",
+        inicioExibicao: "2023-04-22T00:00:00.000Z",
+        fimExibicao: "2023-05-12T00:00:00.000Z",
+        redirectLink: "www.google.com",
+        desktop: "2b10XuJa079QT85ToY8UUMpiun1AJdi0VqZtFj7fVkPXBWtvVsyO.png",
+        mobile: "2b10bDOjrgy0HP4sPp9jaDOEpK0Q3BnkAG3kFFQGoPIxaPRS0adlha.png",
       }
     ]
   });
@@ -45,11 +65,11 @@ async function main() {
     data: [
       {
         titulo: "Nossos Big Numbers",
-        descricao: "Lorem ipsum dolor sit amet consectetur. Mauris ultrices aliquam justo id cras.",
-        lotes: 1550,
-        asfalto: 5000,
-        rua: 500,
-        familias: 1550,
+        descricao: "Em mais de 30 anos de história, a Cromo vem ajudando milhares de balsenses a realizar o sonho de seu lote ou casa própria e contribuindo no desenvolvimento do Sul do Maranhão..",
+        lotes: 1200,
+        asfalto: 2600,
+        rua: 140,
+        familias: 700,
       },
     ]
   });
