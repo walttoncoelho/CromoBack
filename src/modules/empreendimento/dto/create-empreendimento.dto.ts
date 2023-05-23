@@ -22,6 +22,9 @@ export class CreateEmpreendimentoDTO {
   @IsString()
   slug: string;
 
+  @IsString()
+  localizacao: string;
+
   @Transform(({ value }) => Number(value))
   @IsNumber()
   lotes: number;

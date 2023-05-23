@@ -61,11 +61,12 @@ async function main() {
       descricao: "Depois do sucesso na primeira etapa, o melhor loteamento de Balsas ganhou uma nova etapa, com 355 lotes de até 255m² com a mesma infraestrutura completa da primeira etapa. As primeiras etapas das obras já estão em andamento, com ruas sendo abertas para receber meio-fio e asfalto em breve.",
       tipoEmpreendimento: "Lotes comerciais e residenciais",
       slug: "residencial-florenca-2a-etapa1",
-      lotes: 686,
+      lotes: 724,
       areaLote: 255,
       logoEmpreendimento: "2b10sZvrXYjKIE11cdPQEid3RuZUnWzklBtt94BFO06vqK9EhlzaQqaLS.png",
       imagemPlantaBaixa: "2b10DPPAdrb4209abaii8cIZQOtdKnNUvElKxOKMn1ok1X47bGWSA6oHO.png",
-      imagemDestaque: "KJAHsd981235lkahjAFKSD1Olkjf14098AQSJKLD.png"
+      imagemDestaque: "KJAHsd981235lkahjAFKSD1Olkjf14098AQSJKLD.png",
+      localizacao: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1KIoSD0CPfXDs611VV2PNC9zyMastOYY&ehbc=2E312F" ></iframe>',
     }
   });
   let galeria = await prisma.fotoEmpreendimento.createMany({

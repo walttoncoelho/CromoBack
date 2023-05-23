@@ -12,6 +12,7 @@ CREATE TABLE `Empreendimento` (
     `logoEmpreendimento` VARCHAR(191) NOT NULL,
     `imagemPlantaBaixa` VARCHAR(191) NOT NULL,
     `imagemDestaque` VARCHAR(191) NOT NULL,
+    `localizacao` TEXT NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
