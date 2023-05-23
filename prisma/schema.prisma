@@ -134,6 +134,7 @@ model Configuracao {
 
 model Banner {
   id             Int               @id @default(autoincrement())
+  status         Boolean
   categoria      CategoriaDoBanner @default(HOME_TOPO)
   titulo         String
   inicioExibicao DateTime

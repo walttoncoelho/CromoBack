@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE `Banner` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `status` BOOLEAN NOT NULL,
     `categoria` ENUM('HOME_TOPO', 'HOME_SECUNDARIO', 'SOBRE_TOPO', 'SOBRE_SECUNDARIO') NOT NULL DEFAULT 'HOME_TOPO',
     `titulo` VARCHAR(191) NOT NULL,
     `inicioExibicao` DATETIME(3) NOT NULL,

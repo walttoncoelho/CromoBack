@@ -5,6 +5,30 @@ const prisma = new PrismaClient()
 
 async function main() {
   let salt = await bcrypt.genSalt();
+  let banners = await prisma.banner.createMany({
+    data: [
+      {
+        status: true,
+        categoria: "HOME_TOPO",
+        titulo: "Banner Principal da Home",
+        redirectLink: "www.google.com",
+        inicioExibicao: "2023-04-22T00:00:00.000Z",
+        fimExibicao: "2023-05-12T00:00:00.000Z",
+        desktop: "2b10wJoRovQA22o720HgyMuXGTq4FN1vjX9yulvuG1WtrJLNH9uTV0re.png",
+        mobile: "2b10spn4WkmLFai2gKM0WNgNhOOWelxNyGvclKSrcnG5wTUh70xDKzy.png",
+      },
+      {
+        status: true,
+        categoria: "HOME_SECUNDARIO",
+        titulo: "Banner Secundário da Home",
+        inicioExibicao: "2023-04-22T00:00:00.000Z",
+        fimExibicao: "2023-05-12T00:00:00.000Z",
+        redirectLink: "www.google.com",
+        desktop: "2b10mD0s4XpCHB8VRmjHNbkB59PowcgO0G7XmP4SvFoOg55EZzTW9Ua.png",
+        mobile: "2b10Gn3CvXzLrgDa6tkO9Xtn9e8ec6SxGjZJf7bFGkuKNl7co7pF7FUjW.png",
+      }
+    ]
+  });
   let users = await prisma.user.createMany({
     data: [
       { 
