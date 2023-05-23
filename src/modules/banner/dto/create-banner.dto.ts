@@ -1,8 +1,12 @@
 import { CategoriaDoBanner } from "@prisma/client";
 import { Transform, Type } from "class-transformer";
-import { IsDate, IsEnum, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
+import { IsBoolean, IsDate, IsEnum, IsNumber, IsOptional, IsString, IsUrl } from "class-validator";
 
 export class CreateBannerDTO {
+  @Type(() => Boolean)
+  @IsBoolean()
+  status: boolean;
+
   @IsEnum(CategoriaDoBanner)
   categoria: CategoriaDoBanner;
 

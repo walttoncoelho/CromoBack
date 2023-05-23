@@ -14,9 +14,14 @@ export class BannerController {
     private readonly bannerService: BannerService
   ) { }
 
-  @Get("/banners")
+  @Get("/banners/home")
+  async presentHome() {
+    return await this.bannerService.present("home");
+  }
+
+  @Get("/banners/sobre")
   async present() {
-    return await this.bannerService.present();
+    return await this.bannerService.present("sobre");
   }
 
   @Roles(Role.Admin)

@@ -6,6 +6,8 @@ import { FileService } from "../file/file.service";
 import { BannerDTO } from "./dto/banner.dto";
 import { CreateBannerDTO } from "./dto/create-banner.dto";
 import { UpdateBannerDTO } from "./dto/update-banner.dto";
+import { applicationUrl } from "src/main";
+import { CategoriaDoBanner as Categoria } from "@prisma/client";
 
 @Injectable()
 export class BannerService {
@@ -18,18 +20,23 @@ export class BannerService {
     return await this.prisma.banner.findMany();
   }
 
-  async present() {
-    let banners = await this.prisma.banner.findMany();
-    return banners.map(banner => ({
-      id: banner.id,
-      categoria: CategoriaDoBanner[banner.categoria],
-      inicioExibicao: banner.inicioExibicao,
-      fimExibicao: banner.fimExibicao,
+  async present(secao: string) {
+    let categoriasDasSecoes: object = {
+      "home": ["HOME_TOPO", "HOME_SECUNDARIO"],
+      "sobre": ["SOBRE_TOPO", "SOBRE_SECUNDARIO"]
+    };
+    let categorias = categoriasDasSecoes[secao];
+    let banners = await this.prisma.banner.findMany({
+      where: { status: true, categoria: { in: categorias } },
+      distinct: ["categoria"],
+      orderBy: [{ createdAt: "desc" }]
+    });
+    let entries = banners.map(banner => [banner.categoria, {
       redirectLink: banner.redirectLink,
-      desktop: banner.desktop,
-      mobile: banner.mobile,
-      ordemExibicao: banner.ordemExibicao
-    }));
+      desktop: `${applicationUrl}/banners/${banner.id}/imagem/${banner.desktop}`,
+      mobile: `${applicationUrl}/banners/${banner.id}/imagem/${banner.mobile}`,
+    }]);
+    return Object.fromEntries(entries);
   }
 
   async create(
