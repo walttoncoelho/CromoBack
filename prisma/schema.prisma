@@ -134,7 +134,7 @@ model Configuracao {
 
 model Banner {
   id             Int               @id @default(autoincrement())
-  categoria      CategoriaDoBanner @default(HOME)
+  categoria      CategoriaDoBanner @default(HOME_TOPO)
   titulo         String
   inicioExibicao DateTime
   fimExibicao    DateTime
@@ -147,6 +147,8 @@ model Banner {
 }
 
 enum CategoriaDoBanner {
-  HOME
-  SOBRE
+  HOME_TOPO
+  HOME_SECUNDARIO
+  SOBRE_TOPO
+  SOBRE_SECUNDARIO
 }
