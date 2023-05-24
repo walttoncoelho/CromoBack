@@ -78,7 +78,8 @@ model Empreendimento {
   logoEmpreendimento String
   imagemPlantaBaixa  String
   imagemDestaque     String
-  localizacao        String                             @db.Text
+  latitude           Float
+  longitude          Float
   createdAt          DateTime                           @default(now())
   updatedAt          DateTime                           @default(now())
   galeria            FotoEmpreendimento[]

@@ -22,8 +22,13 @@ export class CreateEmpreendimentoDTO {
   @IsString()
   slug: string;
 
-  @IsString()
-  localizacao: string;
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  latitude: number;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  longitude: number;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()

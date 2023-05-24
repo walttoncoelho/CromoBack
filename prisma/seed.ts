@@ -110,7 +110,8 @@ async function main() {
       logoEmpreendimento: "2b10sZvrXYjKIE11cdPQEid3RuZUnWzklBtt94BFO06vqK9EhlzaQqaLS.png",
       imagemPlantaBaixa: "2b10DPPAdrb4209abaii8cIZQOtdKnNUvElKxOKMn1ok1X47bGWSA6oHO.png",
       imagemDestaque: "KJAHsd981235lkahjAFKSD1Olkjf14098AQSJKLD.png",
-      localizacao: '<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1KIoSD0CPfXDs611VV2PNC9zyMastOYY&ehbc=2E312F" ></iframe>',
+      latitude: -7.534374900000001,
+      longitude: -46.07219060000001
     }
   });
   let galeria = await prisma.fotoEmpreendimento.createMany({

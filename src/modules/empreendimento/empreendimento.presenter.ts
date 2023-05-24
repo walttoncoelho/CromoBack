@@ -19,7 +19,7 @@ export class EmpreendimentoPresenter {
   imagemDestaque: string;
   infraestrutura: Array<InfraestruturaPresenter>;
   galeria: Array<FotoEmpreendimentoPresenter>;
-  localizacao: string;
+  localizacao: { latitude: number, longitude: number };
 
   constructor(
     empreendimento: Empreendimento,
@@ -40,6 +40,9 @@ export class EmpreendimentoPresenter {
     this.imagemDestaque = `${applicationUrl}/empreendimentos/${empreendimento.id}/imagem/${empreendimento.imagemDestaque}`;
     this.infraestrutura = infraestrutura;
     this.galeria = galeria;
-    this.localizacao = empreendimento.localizacao;
+    this.localizacao = {
+      latitude: empreendimento.latitude,
+      longitude: empreendimento.longitude
+    };
   }
 }
