@@ -97,79 +97,137 @@ async function main() {
       },
     ]
   });
-  let empreendimento = await prisma.empreendimento.create({
-    data: {
-      status: true,
-      statusDaConstrucao: "EM_CONSTRUCAO",
-      titulo: "Residencial Florença 2ª Etapa",
-      resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
-      descricao: "Depois do sucesso na primeira etapa, o melhor loteamento de Balsas ganhou uma nova etapa, com 355 lotes de até 255m² com a mesma infraestrutura completa da primeira etapa. As primeiras etapas das obras já estão em andamento, com ruas sendo abertas para receber meio-fio e asfalto em breve.",
-      tipoEmpreendimento: "Lotes comerciais e residenciais",
-      slug: "residencial-florenca-2a-etapa1",
-      lotes: 724,
-      areaLote: 255,
-      logoEmpreendimento: "2b10sZvrXYjKIE11cdPQEid3RuZUnWzklBtt94BFO06vqK9EhlzaQqaLS.png",
-      imagemPlantaBaixa: "2b10DPPAdrb4209abaii8cIZQOtdKnNUvElKxOKMn1ok1X47bGWSA6oHO.png",
-      imagemDestaque: "KJAHsd981235lkahjAFKSD1Olkjf14098AQSJKLD.png",
-      latitude: -7.534374900000001,
-      longitude: -46.07219060000001
-    }
+  let empreendimento = await prisma.empreendimento.createMany({
+    data: [
+      {
+        status: true,
+        statusDaConstrucao: "EM_CONSTRUCAO",
+        titulo: "Residencial Florença 1ª Etapa",
+        resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
+        descricao: "O primeiro loteamento a gente nunca esquece. E o Florença Primeira Etapa marcou o início de uma nova fase da história da Cromo e de Balsas. São 742 lotes de ate 255m², com infraestrutura completa para você construir sua casa ou ponto comercial. As obras estão avançando, com ruas já abertas e recebendo asfalto e perfuração de poços.",
+        tipoEmpreendimento: "Lotes comerciais & residenciais",
+        slug: "residencial-florenca-1-etapa",
+        lotes: 742,
+        areaLote: 255,
+        logoEmpreendimento: "2b10Dce0PQjGBQId2wVCn8XK7zxm110VX55KAHElVEiSEBQG9nQREci.png",
+        imagemPlantaBaixa: "2b10Oz3ANgrJF9F7s83bvvh7ueHz0Ji2KlQHieiVROaSOHGOWpk549GK.png",
+        imagemDestaque: "2b10vTYbTzIgVKDEV6Aw7HNsOvve6E46lMupgWpAFjZZ70omriPxLxO.jpg",
+        latitude: -7.534374900000001,
+        longitude: -46.07219060000001,
+      },
+      {
+        status: true,
+        statusDaConstrucao: "EM_CONSTRUCAO",
+        titulo: "Residencial Florença 2ª Etapa",
+        resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
+        descricao: "Depois do sucesso na primeira etapa, o melhor loteamento de Balsas ganhou uma nova etapa, com 355 lotes de até 255m² com a mesma infraestrutura completa da primeira etapa. As primeiras etapas das obras já estão em andamento, com ruas sendo abertas para receber meio-fio e asfalto em breve.",
+        tipoEmpreendimento: "Lotes comerciais & residenciais",
+        slug: "residencial-florenca-2-etapa",
+        lotes: 355,
+        areaLote: 255,
+        logoEmpreendimento: "2b106PaOq32YReKq5Xyro3eWbGUKT9JPUIitHdL8d3vhXbITM3ea.png",
+        imagemPlantaBaixa: "2b109x8SeR5lCrkEbPbLFtzU7eOb18K5dClYA987zBGC45lvrPgic4K5i.png",
+        imagemDestaque: "2b10JppLMoYwqGSvytyuGrkGOjvpNqXIynu5umCpa88Exjwo6Y8nrS.jpg",
+        latitude: -7.534374900000001,
+        longitude: -46.07219060000001,
+      },
+      {
+        status: true,
+        statusDaConstrucao: "ENTREGUE",
+        titulo: "Residencial Veneza",
+        resumo: "Resumo Residencial Veneza",
+        descricao: "Descrição Residencial Veneza",
+        tipoEmpreendimento: "Lotes comerciais & residenciais",
+        slug: "residencial-veneza",
+        lotes: 1,
+        areaLote: 1,
+        logoEmpreendimento: "2b10tezsF7d4fSP07DqafjqserG4WBle2jz5XBJC6U5jtHw9yrzLu.png",
+        imagemPlantaBaixa: "2b10HUMDULxRrzmpkGn9nh8bfe3BKRS7BvLqHQvWMSttpNoO5mD3ymAOq.png",
+        imagemDestaque: "2b10CRSDM09LWqjAo1EI7I9FYAVQv5uqeG8PTkTFik31xmFbb9INSn.png",
+        latitude: -7.534374900000001,
+        longitude: -46.07219060000001,
+      },
+    ]
   });
   let galeria = await prisma.fotoEmpreendimento.createMany({
     data: [
       {
         status: true,
-        arquivo: "2b10TCkKUqs8hzCMMnyl1Z7gKutkUUlshR0jHWowOCf9dZwYZK52x3W.png",
+        arquivo: "2b105zoZP6mjgABmzTretc2r0Oyk1LY4k8Qyrwbm3lB7Utj5yfi1mnCxy.JPG",
         ordemExibicao: 1,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10K89Gr9pHceNTJSMifQeKVeAvNC3uFjCxIxu7DF540EyJkv76yt2.png",
+        arquivo: "2b10GYB9E9q0vCPM4cAAmjate3MtwA1VJDgYumAZ9gSe33Z3SfxQlS.JPG",
         ordemExibicao: 2,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10sxjaOaL7rtnUvAaz2kGnfc1PmOfa3wzXmpfnR6LONerciHEwFJB6.png",
+        arquivo: "2b10OKPCO4V92O1CnXqzv48yseibkaBUXJaCzpgqQ6BpVYaoGgyZgqwe6.JPG",
         ordemExibicao: 3,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10E07WiAl691JN9FQJ6q4uuf6A4AHlQifPhtZOPj0weglQ5NCtU2.png",
+        arquivo: "2b109qmFzjvuig2Xj669DiqCu5HscllLJvl8tPGx91hP8z6aEmx2YbLW.JPG",
         ordemExibicao: 4,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10V1Ihy8e29mDAqupzj9SjEuIoVCN3VnyDzMEEks6J7jyUWKy7rhO.png",
+        arquivo: "2b10MHXonCeGScAbm1V0Mq9FOSMTpVOhhMxG0OzmmnJ5B5hZIC9IbxW.JPG",
         ordemExibicao: 5,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b109wH25OCbvwB5Oir4JRxTQCEd8MGJWa5hl8CA84f0ZEkgLmvA1oji.png",
+        arquivo: "2b10knXHw1OIaMt9xiLST2gri2bkYJOFzNB3EllzalbOnv2YaLh8liS.JPG",
         ordemExibicao: 6,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10pxQdksfCUGnELnNUDef7i8h02lxSopQV2mmGqNYK1pGFkDfejS.png",
+        arquivo: "2b10uhQQw8KDUVTxIxz7JRzY7uokJXHFVeXmgBrOypnrsjLHlfOyo6i.JPG",
         ordemExibicao: 7,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10HFN3ctPLCzIdXBJ0p8QnDOi6fGRonBp0IyVrYBvNbkKUfJGRLh8fa.png",
+        arquivo: "2b10YOBvYMiXBoPILcXkKiUMuUKBugTgUvJSx7J2bD8SG8P2tW4tC1Li.JPG",
         ordemExibicao: 8,
         empreendimentoId: 1,
       },
       {
         status: true,
-        arquivo: "2b10Ij9OlPJW9kXn8KU93LE9OCppYOsLWtE9z3kYRmQthcv6uQfpFPzu.png",
+        arquivo: "2b10OfYjeOH2lUGBbnN8ILGAOUKjmds8jrOlbZy97yuj8p82P5nzza.JPG",
         ordemExibicao: 9,
         empreendimentoId: 1,
+      },
+      {
+        status: true,
+        arquivo: "2b10CI2bYjd4mJH9hvyEdZeuvtQCKfnzIUVQgipW2aGN04lWOLij3y.JPG",
+        ordemExibicao: 1,
+        empreendimentoId: 2,
+      },
+      {
+        status: true,
+        arquivo: "2b106CQIABOmoOjr6ry9SR2cur1sKx7mecVitKrZfLNatYVPBmhQdxm.JPG",
+        ordemExibicao: 2,
+        empreendimentoId: 2,
+      },
+      {
+        status: true,
+        arquivo: "2b10sOZorTBe9cmNUOwVbuWV3enBdyoJ5GByOSuKKOkkjqwHxRXPoOga.JPG",
+        ordemExibicao: 3,
+        empreendimentoId: 2,
+      },
+      {
+        status: true,
+        arquivo: "2b10XJ8Fs1dRtTnAakK76eUJuNBdbYq37vgY9y6WO65oLqF0vC6sl8K.JPG",
+        ordemExibicao: 4,
+        empreendimentoId: 2,
       },
     ]
   });
@@ -194,6 +252,46 @@ async function main() {
       {
         infraestruturaId: 5,
         empreendimentoId: 1,
+      },
+      {
+        infraestruturaId: 1,
+        empreendimentoId: 2,
+      },
+      {
+        infraestruturaId: 2,
+        empreendimentoId: 2,
+      },
+      {
+        infraestruturaId: 3,
+        empreendimentoId: 2,
+      },
+      {
+        infraestruturaId: 4,
+        empreendimentoId: 2,
+      },
+      {
+        infraestruturaId: 5,
+        empreendimentoId: 2,
+      },
+      {
+        infraestruturaId: 1,
+        empreendimentoId: 3,
+      },
+      {
+        infraestruturaId: 2,
+        empreendimentoId: 3,
+      },
+      {
+        infraestruturaId: 3,
+        empreendimentoId: 3,
+      },
+      {
+        infraestruturaId: 4,
+        empreendimentoId: 3,
+      },
+      {
+        infraestruturaId: 5,
+        empreendimentoId: 3,
       },
     ]
   });
