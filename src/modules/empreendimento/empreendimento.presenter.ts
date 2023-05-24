@@ -9,6 +9,7 @@ export class EmpreendimentoPresenter {
   status: boolean;
   statusDaConstrucao: string;
   titulo: string;
+  resumo: string;
   descricao: string;
   tipoEmpreendimento: string;
   slug: string;
@@ -30,6 +31,7 @@ export class EmpreendimentoPresenter {
     this.status = empreendimento.status;
     this.statusDaConstrucao = StatusDaConstrucao[empreendimento.statusDaConstrucao];
     this.titulo = empreendimento.titulo;
+    this.resumo = empreendimento.resumo;
     this.descricao = empreendimento.descricao;
     this.tipoEmpreendimento = empreendimento.tipoEmpreendimento;
     this.slug = empreendimento.slug;

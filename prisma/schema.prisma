@@ -70,6 +70,7 @@ model Empreendimento {
   status             Boolean
   statusDaConstrucao StatusDaConstrucao                 @default(EM_CONSTRUCAO)
   titulo             String
+  resumo             String
   descricao          String                             @db.Text
   tipoEmpreendimento String
   slug               String                             @unique

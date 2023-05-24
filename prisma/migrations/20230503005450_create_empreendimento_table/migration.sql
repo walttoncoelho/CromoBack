@@ -4,6 +4,7 @@ CREATE TABLE `Empreendimento` (
     `status` BOOLEAN NOT NULL,
     `statusDaConstrucao` ENUM('EM_CONSTRUCAO', 'ENTREGUE') NOT NULL DEFAULT 'EM_CONSTRUCAO',
     `titulo` VARCHAR(191) NOT NULL,
+    `resumo` VARCHAR(255) NOT NULL,
     `descricao` TEXT NOT NULL,
     `tipoEmpreendimento` VARCHAR(191) NOT NULL,
     `slug` VARCHAR(191) NOT NULL,

@@ -14,6 +14,9 @@ export class CreateEmpreendimentoDTO {
   titulo: string;
 
   @IsString()
+  resumo: string;
+
+  @IsString()
   descricao: string;
 
   @IsString()

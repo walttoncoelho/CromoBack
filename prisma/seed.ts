@@ -102,6 +102,7 @@ async function main() {
       status: true,
       statusDaConstrucao: "EM_CONSTRUCAO",
       titulo: "Residencial Florença 2ª Etapa",
+      resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
       descricao: "Depois do sucesso na primeira etapa, o melhor loteamento de Balsas ganhou uma nova etapa, com 355 lotes de até 255m² com a mesma infraestrutura completa da primeira etapa. As primeiras etapas das obras já estão em andamento, com ruas sendo abertas para receber meio-fio e asfalto em breve.",
       tipoEmpreendimento: "Lotes comerciais e residenciais",
       slug: "residencial-florenca-2a-etapa1",
