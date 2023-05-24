@@ -85,7 +85,7 @@ async function main() {
       },
       {
         icone: "2b10iL6Cfb8spsAN1fexGUjSTm6dgpG5S6LgDko7xCYzvEuo3cGkLe.png",
-        titulo: "Iluninação Pública",
+        titulo: "Iluminação Pública",
       },
       {
         icone: "2b10OkTbO7fdl3O5oPOsdNGHaO8PtDKMUvKVlCz4k9tS3IeuaRwX3AIDu.png",
