@@ -1,9 +1,12 @@
 import { 
   Body, 
   Controller, 
+  DefaultValuePipe, 
   Get, 
+  ParseIntPipe, 
   Patch,
   Post,
+  Query,
   Res,
   UploadedFile,
   UseGuards,
@@ -33,8 +36,14 @@ export class InfraestruturaController {
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/infraestruturas")
-  async all() {
-    return await this.infraestruturaService.list();
+  async all(
+    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) pagina: number,
+    @Query("infraestruturasPorPagina", new DefaultValuePipe(25), ParseIntPipe) infraestruturasPorPagina: number
+  ) {
+    return await this.infraestruturaService.paginate(
+      pagina,
+      infraestruturasPorPagina
+    );
   }
 
   @Roles(Role.Admin)
