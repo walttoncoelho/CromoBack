@@ -8,6 +8,7 @@ import { CreateBannerDTO } from "./dto/create-banner.dto";
 import { UpdateBannerDTO } from "./dto/update-banner.dto";
 import { applicationUrl } from "src/main";
 import { CategoriaDoBanner as Categoria } from "@prisma/client";
+import { BannerPresenter } from "./banner.presenter";
 
 @Injectable()
 export class BannerService {
@@ -16,8 +17,32 @@ export class BannerService {
     private readonly fileService: FileService
   ) { }
 
-  async list() {
-    return await this.prisma.banner.findMany();
+  async list(pagina: number | null = null, bannersPorPagina: number | null = null) {
+    if (!pagina) pagina = 1;
+    if (!bannersPorPagina) bannersPorPagina = 25;
+
+    let contagem = await this.prisma.banner.count();
+    let totalDePaginas = Math.ceil(contagem / bannersPorPagina);
+    if (pagina > totalDePaginas) {
+      throw new NotFoundException("Página inválida");
+    }
+    let createdAtSort: object = {
+      createdAt: "desc"
+    };
+    let orderBy = [
+      createdAtSort,
+    ];
+    let skip = bannersPorPagina * (pagina - 1);
+    let take = bannersPorPagina;
+    let query = { orderBy, skip, take };
+    let resultados = await this.prisma.banner.findMany(query);
+    let banners = resultados.map(resultado => new BannerPresenter(resultado));
+    return {
+      banners,
+      pagina,
+      bannersPorPagina,
+      totalDePaginas
+    }
   }
 
   async present(secao: string) {

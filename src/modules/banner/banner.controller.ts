@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
@@ -27,8 +27,14 @@ export class BannerController {
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
   @Get("/manager/banners")
-  async all() {
-    return await this.bannerService.list();
+  async all(
+    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) pagina: number,
+    @Query("bannersPorPagina", new DefaultValuePipe(25), ParseIntPipe) bannersPorPagina: number
+  ) {
+    return await this.bannerService.list(
+      pagina,
+      bannersPorPagina
+    );
   }
 
   @Roles(Role.Admin)
