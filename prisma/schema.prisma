@@ -66,25 +66,26 @@ model Estado {
 }
 
 model Empreendimento {
-  id                 Int                                @id @default(autoincrement())
-  status             Boolean
-  statusDaConstrucao StatusDaConstrucao                 @default(EM_CONSTRUCAO)
-  titulo             String
-  resumo             String
-  descricao          String                             @db.Text
-  tipoEmpreendimento String
-  slug               String                             @unique
-  lotes              Int
-  areaLote           Float
-  logoEmpreendimento String
-  imagemPlantaBaixa  String
-  imagemDestaque     String
-  latitude           Float
-  longitude          Float
-  createdAt          DateTime                           @default(now())
-  updatedAt          DateTime                           @default(now())
-  galeria            FotoEmpreendimento[]
-  infraestrutura     InfraestruturaDosEmpreendimentos[]
+  id                   Int                                @id @default(autoincrement())
+  status               Boolean
+  completamenteVendido Boolean
+  statusDaConstrucao   StatusDaConstrucao                 @default(EM_CONSTRUCAO)
+  titulo               String
+  resumo               String
+  descricao            String                             @db.Text
+  tipoEmpreendimento   String
+  slug                 String                             @unique
+  lotes                Int
+  areaLote             Float
+  logoEmpreendimento   String
+  imagemPlantaBaixa    String
+  imagemDestaque       String
+  latitude             Float
+  longitude            Float
+  createdAt            DateTime                           @default(now())
+  updatedAt            DateTime                           @default(now())
+  galeria              FotoEmpreendimento[]
+  infraestrutura       InfraestruturaDosEmpreendimentos[]
 }
 
 enum StatusDaConstrucao {

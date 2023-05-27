@@ -7,6 +7,7 @@ import { InfraestruturaPresenter } from "../infraestrutura/infraestrutura.presen
 export class EmpreendimentoPresenter {
   id: number;
   status: boolean;
+  completamenteVendido: boolean;
   statusDaConstrucao: string;
   titulo: string;
   resumo: string;
@@ -29,6 +30,7 @@ export class EmpreendimentoPresenter {
   ) {
     this.id = empreendimento.id;
     this.status = empreendimento.status;
+    this.completamenteVendido = empreendimento.completamenteVendido;
     this.statusDaConstrucao = StatusDaConstrucao[empreendimento.statusDaConstrucao];
     this.titulo = empreendimento.titulo;
     this.resumo = empreendimento.resumo;

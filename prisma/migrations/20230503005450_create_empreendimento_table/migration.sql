@@ -2,6 +2,7 @@
 CREATE TABLE `Empreendimento` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `status` BOOLEAN NOT NULL,
+    `completamenteVendido` BOOLEAN NOT NULL,
     `statusDaConstrucao` ENUM('EM_CONSTRUCAO', 'ENTREGUE') NOT NULL DEFAULT 'EM_CONSTRUCAO',
     `titulo` VARCHAR(191) NOT NULL,
     `resumo` VARCHAR(255) NOT NULL,

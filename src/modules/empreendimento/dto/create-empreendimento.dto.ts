@@ -7,6 +7,10 @@ export class CreateEmpreendimentoDTO {
   @IsBoolean()
   status: boolean;
 
+  @Transform(({ value }) => Boolean(value))
+  @IsBoolean()
+  completamenteVendido: boolean;
+
   @IsEnum(StatusDaConstrucao)
   statusDaConstrucao: StatusDaConstrucao;
 

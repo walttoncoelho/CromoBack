@@ -101,6 +101,7 @@ async function main() {
     data: [
       {
         status: true,
+        completamenteVendido: true,
         statusDaConstrucao: "EM_CONSTRUCAO",
         titulo: "Residencial Florença 1ª Etapa",
         resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
@@ -117,6 +118,7 @@ async function main() {
       },
       {
         status: true,
+        completamenteVendido: true,
         statusDaConstrucao: "EM_CONSTRUCAO",
         titulo: "Residencial Florença 2ª Etapa",
         resumo: "Localizado em uma área estratégica do município, o Residencial Florença oferece lotes com infraestrutura completa de energia elétrica, rede de água, iluminação pública, galerias pluviais, além de contar com ruas com asfalto e meio-fio.",
@@ -133,6 +135,7 @@ async function main() {
       },
       {
         status: true,
+        completamenteVendido: false,
         statusDaConstrucao: "ENTREGUE",
         titulo: "Residencial Veneza",
         resumo: "Resumo Residencial Veneza",
