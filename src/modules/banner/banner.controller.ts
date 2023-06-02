@@ -69,7 +69,16 @@ export class BannerController {
 
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
-  @Patch("/manager/banners/:id")
+  @Get("/manager/banner/:id")
+  async show(
+    @ParamId() bannerId: number,
+  ) {
+    return await this.bannerService.show(bannerId);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Patch("/manager/banner/:id")
   async update(
     @ParamId() bannerId: number,
     @Body() updateBannerDTO: UpdateBannerDTO
