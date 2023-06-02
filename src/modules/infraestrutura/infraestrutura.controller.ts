@@ -3,6 +3,7 @@ import {
   Controller, 
   DefaultValuePipe, 
   Get, 
+  ParseFilePipe, 
   ParseIntPipe, 
   Patch,
   Post,
@@ -24,6 +25,7 @@ import { InfraestruturaService } from "./infraestrutura.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { FileService } from "../file/file.service";
 import { join } from "path";
+import { applicationUrl } from "src/main";
 
 @Controller()
 export class InfraestruturaController {
@@ -76,7 +78,11 @@ export class InfraestruturaController {
   async show(
     @ParamId() id: number
   ) {
-    return await this.infraestruturaService.show(id);
+    let infraestrutura = await this.infraestruturaService.show(id); 
+    return {
+      ...infraestrutura,
+      iconeUrl: `${applicationUrl}/infraestruturas/${infraestrutura.id}/icone`
+    }
   }
 
   @Roles(Role.Admin)
@@ -86,6 +92,22 @@ export class InfraestruturaController {
     @Body() updateInfraestruturaDTO: UpdateInfraestruturaDTO,
     @ParamId() id: number
   ) {
+    return await this.infraestruturaService.update(id, updateInfraestruturaDTO);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Post("/manager/infraestruturas/:id")
+  @UseInterceptors(FileInterceptor("icone"))
+  async updateImage(
+    @ParamId() id: number,
+    @UploadedFile() arquivo: Express.Multer.File
+  ) {
+    let icone: string = await this.fileService.upload("infraestrutura", arquivo);
+    let updateInfraestruturaDTO: UpdateInfraestruturaDTO = {
+      icone
+    };
     return await this.infraestruturaService.update(id, updateInfraestruturaDTO);
   }
 }
