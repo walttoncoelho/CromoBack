@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Patch, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
@@ -7,6 +7,7 @@ import { AuthGuard } from "src/guards/auth.guard";
 import { RoleGuard } from "src/guards/role.guard";
 import { BannerService } from "./banner.service";
 import { CreateBannerDTO } from "./dto/create-banner.dto";
+import { UpdateBannerDTO } from "./dto/update-banner.dto";
 
 @Controller()
 export class BannerController {
@@ -64,6 +65,19 @@ export class BannerController {
   @Get("/manager/banners/create-options")
   async createOptions() {
     return await this.bannerService.createOptions();
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Patch("/manager/banners/:id")
+  async update(
+    @ParamId() bannerId: number,
+    @Body() updateBannerDTO: UpdateBannerDTO
+  ) {
+    return await this.bannerService.update(
+      bannerId,
+      updateBannerDTO
+    );
   }
 
   @Get("/banners/:id/imagem/:arquivo")

@@ -119,6 +119,8 @@ export class BannerService {
     file: string
   ) {
     let banner = await this.show(id);
+    if (!banner.status)
+      throw new NotFoundException("Banner não encontrado.");
     
     let filepath = join("banners", `${banner.id}`, file);
     return await this.fileService.retrieve(filepath);
