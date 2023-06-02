@@ -5,6 +5,9 @@ import {
   Post, 
   Patch,
   UseGuards,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { AuthGuard } from "src/guards/auth.guard";
 import { ParamId } from "src/decorators/param-id.decorator";
@@ -34,6 +37,17 @@ export class UserController {
   @Get()
   async all() {
     return await this.userService.list();
+  }
+
+  @Get("paginate")
+  async paginate(
+    @Query("pagina", new DefaultValuePipe(1), ParseIntPipe) pagina: number,
+    @Query("usuariosPorPagina", new DefaultValuePipe(25), ParseIntPipe) usuariosPorPagina: number
+  ) {
+    return await this.userService.paginate(
+      pagina,
+      usuariosPorPagina
+    );
   }
 
   @Get(":id")

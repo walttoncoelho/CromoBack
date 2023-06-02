@@ -21,6 +21,33 @@ export class UserService {
     return await this.prisma.user.findMany();
   }
 
+  async paginate(pagina: number | null = null, usuariosPorPagina: number | null = null) {
+    if (!pagina) pagina = 1;
+    if (!usuariosPorPagina) usuariosPorPagina = 25;
+
+    let contagem = await this.prisma.user.count();
+    let totalDePaginas = Math.ceil(contagem / usuariosPorPagina);
+    if (pagina > totalDePaginas) {
+      throw new NotFoundException("Página inválida");
+    }
+    let createdAtSort: object = {
+      createdAt: "desc"
+    };
+    let orderBy = [
+      createdAtSort,
+    ];
+    let skip = usuariosPorPagina * (pagina - 1);
+    let take = usuariosPorPagina;
+    let query = { orderBy, skip, take };
+    let usuarios = await this.prisma.user.findMany(query);
+    return {
+      usuarios,
+      pagina,
+      usuariosPorPagina,
+      totalDePaginas
+    }
+  }
+
   async show(id: number) {
     let user = await this.prisma.user.findUnique({
       where: { id }
