@@ -6,7 +6,10 @@ import { LogInterceptor } from './interceptors/log.interceptor';
 async function bootstrap() {
   let app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: [ "http://localhost:3001", /* domínio da aplicação Front do CROMO */ ]
+    origin: [
+      "http://localhost:3001", 
+      "https://cromo.homolog.tec.br/" 
+    ]
   });
   app.useGlobalPipes(new ValidationPipe);
   app.useGlobalInterceptors(new LogInterceptor)
