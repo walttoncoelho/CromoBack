@@ -8,7 +8,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       "http://localhost:3001", 
-      "https://cromo.homolog.tec.br/" 
+      "https://cromo.homolog.tec.br" 
     ]
   });
   app.useGlobalPipes(new ValidationPipe);
