@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe);
   app.useGlobalInterceptors(new LogInterceptor)
   await app.listen(3000);
-  applicationUrl = await app.getUrl(); 
+  applicationUrl = process.env.APPLICATION_URL ?? await app.getUrl();
 }
 bootstrap();
 
