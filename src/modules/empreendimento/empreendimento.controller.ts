@@ -202,4 +202,13 @@ export class EmpreendimentoController {
   ) {
     return await this.fotoEmpreendimentoService.toggleStatus(imagemId);
   }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Delete("/manager/imagem/:imagem")
+  async deletarImagem(
+    @ImagemId() imagemId: number
+  ) {
+    return await this.fotoEmpreendimentoService.delete(imagemId);
+  }
 }

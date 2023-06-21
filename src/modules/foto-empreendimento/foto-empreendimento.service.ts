@@ -30,4 +30,12 @@ export class FotoEmpreendimentoService {
       where: { id: fotoEmpreendimento.id }
     });
   }
+
+  async delete(id: number) {
+    let fotoEmpreendimento = await this.show(id);
+
+    return await this.prisma.fotoEmpreendimento.delete({
+      where: { id: fotoEmpreendimento.id }
+    });
+  }
 }
