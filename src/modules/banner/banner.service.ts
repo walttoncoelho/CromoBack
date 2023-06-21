@@ -99,7 +99,12 @@ export class BannerService {
     });
     if (!banner)
       throw new NotFoundException("Banner não encontrado.");
-    return banner;
+    let presented = new BannerPresenter(banner);
+    return {
+      ...banner,
+      desktop: presented.desktop,
+      mobile: presented.mobile,
+    };
   }
 
   async update(
