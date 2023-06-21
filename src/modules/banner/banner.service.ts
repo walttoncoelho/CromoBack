@@ -130,4 +130,14 @@ export class BannerService {
     let filepath = join("banners", `${banner.id}`, file);
     return await this.fileService.retrieve(filepath);
   }
+
+  async delete(
+    id: number
+  ) {
+    let banner = await this.show(id);
+
+    return await this.prisma.banner.delete({
+      where: { id: banner.id }
+    });
+  }
 }

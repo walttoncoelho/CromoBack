@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Patch, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Res, UploadedFiles, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { ParamId } from "src/decorators/param-id.decorator";
 import { Roles } from "src/decorators/roles.decorator";
@@ -97,5 +97,16 @@ export class BannerController {
   ) {
     let arquivo = await this.bannerService.getImagem(bannerId, banner);
     return response.sendFile(arquivo);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Delete("/manager/banner/:id")
+  async delete(
+    @ParamId() bannerId: number
+  ) {
+    return await this.bannerService.delete(
+      bannerId,
+    );
   }
 }
