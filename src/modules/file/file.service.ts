@@ -14,7 +14,7 @@ export class FileService {
     let filename = await this.generateFilename(file);
     let path = join(
       process.cwd(),
-      "imagens",
+      "storage",
       directory
     );
     if (!fs.existsSync(path)) {
@@ -38,7 +38,7 @@ export class FileService {
   ): Promise<string> {
     let path = join(
       process.cwd(),
-      "imagens",
+      "storage",
       filename
     );
     return fs.existsSync(path) ? path : "";
