@@ -45,4 +45,12 @@ export class FaleConoscoService {
       throw new NotFoundException("Lead não encontrado.");
     return lead;
   }
+
+  async delete(id: number) {
+    let lead = await this.show(id);
+
+    return await this.prisma.lead.delete({
+      where: { id: lead.id }
+    });
+  }
 }

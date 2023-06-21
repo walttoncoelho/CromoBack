@@ -2,6 +2,7 @@ import {
   Body, 
   Controller, 
   DefaultValuePipe, 
+  Delete, 
   Get, 
   ParseIntPipe, 
   Post,
@@ -50,5 +51,14 @@ export class FaleConoscoController {
     @ParamId() id: number
   ) {
     return await this.faleConoscoService.show(id);
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Delete(":id")
+  async delete(
+    @ParamId() id: number
+  ) {
+    return await this.faleConoscoService.delete(id);
   }
 }
