@@ -208,6 +208,7 @@ export class EmpreendimentoController {
     let empreendimento = await this.empreendimentoService.show(empreendimentoId);
     let filepath = join("empreendimento", empreendimento.slug, "galeria", imagem);
     let arquivo = await this.fileService.retrieve(filepath);
+    console.log(arquivo);
     return response.sendFile(arquivo);
   }
 
