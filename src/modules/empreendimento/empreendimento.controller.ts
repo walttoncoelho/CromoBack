@@ -151,6 +151,7 @@ export class EmpreendimentoController {
 
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Patch("/manager/empreendimentos/:id")
   async update(
     @Body() updateEmpreendimentoDTO: UpdateEmpreendimentoDTO,
