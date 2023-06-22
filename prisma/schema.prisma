@@ -68,6 +68,7 @@ model Estado {
 model Empreendimento {
   id                   Int                                @id @default(autoincrement())
   status               Boolean
+  destaque             Boolean
   completamenteVendido Boolean
   statusDaConstrucao   StatusDaConstrucao                 @default(EM_CONSTRUCAO)
   titulo               String

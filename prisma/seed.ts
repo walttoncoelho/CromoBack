@@ -101,6 +101,7 @@ async function main() {
     data: [
       {
         status: true,
+        destaque: true,
         completamenteVendido: true,
         statusDaConstrucao: "EM_CONSTRUCAO",
         titulo: "Residencial Florença 1ª Etapa",
@@ -118,6 +119,7 @@ async function main() {
       },
       {
         status: true,
+        destaque: true,
         completamenteVendido: true,
         statusDaConstrucao: "EM_CONSTRUCAO",
         titulo: "Residencial Florença 2ª Etapa",
@@ -135,6 +137,7 @@ async function main() {
       },
       {
         status: true,
+        destaque: true,
         completamenteVendido: false,
         statusDaConstrucao: "ENTREGUE",
         titulo: "Residencial Veneza",
