@@ -58,6 +58,22 @@ export class EmpreendimentoController {
     );
   }
 
+  @Get("/empreendimentos/destaque")
+  async presentDestaque(
+    @Query("cursor", new DefaultValuePipe(null)) cursorQuery: string | null,
+    @Query("empreendimentosPorPagina", new DefaultValuePipe(25), ParseIntPipe) empreendimentosPorPagina: number
+  ) {
+    let cursorNumber = Number.parseInt(cursorQuery);
+    let cursor = Number.isNaN(cursorNumber) ? null : cursorNumber;
+    if (cursorQuery !== null && cursor === null) {
+      throw new BadRequestException("O cursor deve ser um número válido");
+    }
+    return await this.empreendimentoService.presentDestaque(
+      cursor,
+      empreendimentosPorPagina
+    );
+  }
+
   @Get("/empreendimentos/:empreendimentoSlug")
   async showBySlug(
     @Param("empreendimentoSlug") empreendimentoSlug: string

@@ -24,7 +24,7 @@ export class EmpreendimentoService {
     }
     if (!empreendimentosPorPagina) empreendimentosPorPagina = 3;
 
-    let where = cursor === null 
+    let where = cursor === null
       ? { status: true }
       : { status: true, id: { lte: cursor } };
     let resultados = await this.prisma.empreendimento.findMany({
@@ -36,7 +36,42 @@ export class EmpreendimentoService {
       ],
       include: {
         infraestrutura: { include: { infraestrutura: true } },
-        galeria: { where:  { status: true } }
+        galeria: { where: { status: true } }
+      },
+      take: empreendimentosPorPagina
+    });
+    let empreendimentos = resultados.map(resultado => {
+      let infraestrutura = resultado.infraestrutura.map(pivot => new InfraestruturaPresenter(pivot.infraestrutura));
+      let galeria = resultado.galeria.map(foto => new FotoEmpreendimentoPresenter(foto));
+      return new EmpreendimentoPresenter(resultado, infraestrutura, galeria);
+    });
+    let ultimoElemento = empreendimentos.length - 1;
+    return {
+      empreendimentos,
+      cursorAtual: empreendimentos[0] ? (empreendimentos[0].id) : (cursor),
+      proximoCursor: empreendimentos[ultimoElemento] ? (empreendimentos[ultimoElemento].id - 1) : null
+    }
+  }
+
+  async presentDestaque(cursor: number | null = null, empreendimentosPorPagina: number | null = null) {
+    if (cursor !== null && cursor < 1) {
+      throw new BadRequestException("Cursor inválido");
+    }
+    if (!empreendimentosPorPagina) empreendimentosPorPagina = 3;
+
+    let where = cursor === null
+      ? { status: true }
+      : { status: true, destaque: true, id: { lte: cursor } };
+    let resultados = await this.prisma.empreendimento.findMany({
+      where,
+      orderBy: [
+        {
+          id: "desc"
+        },
+      ],
+      include: {
+        infraestrutura: { include: { infraestrutura: true } },
+        galeria: { where: { status: true } }
       },
       take: empreendimentosPorPagina
     });
