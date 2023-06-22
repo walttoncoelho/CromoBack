@@ -208,7 +208,7 @@ export class EmpreendimentoController {
     let empreendimento = await this.empreendimentoService.show(empreendimentoId);
     let filepath = join("empreendimento", empreendimento.slug, "galeria", imagem);
     let arquivo = await this.fileService.retrieve(filepath);
-    return response.sendFile(arquivo);
+    return response.sendFile(arquivo, { root: "/" });
   }
 
   @Roles(Role.Admin)

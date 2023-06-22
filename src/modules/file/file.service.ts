@@ -41,7 +41,7 @@ export class FileService {
       "storage",
       filename
     );
-    return path;
+    return fs.existsSync(path) ? path : "";
   }
 
   private async generateFilename(file: Express.Multer.File) {
