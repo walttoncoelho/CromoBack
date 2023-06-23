@@ -32,6 +32,7 @@ import { join } from "path";
 import { UploadIntoGaleriaDTO } from "./dto/upload-into-galeria.dto";
 import { ImagemId } from "./decorators/imagem-id.decorator";
 import { FotoEmpreendimentoService } from "../foto-empreendimento/foto-empreendimento.service";
+import { createReadStream } from "fs";
 
 @Controller()
 export class EmpreendimentoController {
@@ -208,7 +209,7 @@ export class EmpreendimentoController {
     let empreendimento = await this.empreendimentoService.show(empreendimentoId);
     let filepath = join("empreendimento", empreendimento.slug, "galeria", imagem);
     let arquivo = await this.fileService.retrieve(filepath);
-    return response.sendFile(arquivo, { root: "/" });
+    createReadStream(arquivo).pipe(response);
   }
 
   @Roles(Role.Admin)
