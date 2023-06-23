@@ -235,6 +235,102 @@ async function main() {
         ordemExibicao: 4,
         empreendimentoId: 2,
       },
+      {
+        status: true,
+        arquivo: "veneza_balsas_1.jpg",
+        ordemExibicao: 1,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_2.jpg",
+        ordemExibicao: 2,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_3.jpg",
+        ordemExibicao: 3,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_4.jpg",
+        ordemExibicao: 4,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_5.jpg",
+        ordemExibicao: 5,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_6.jpg",
+        ordemExibicao: 6,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_7.jpg",
+        ordemExibicao: 7,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_8.jpg",
+        ordemExibicao: 8,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_9.jpg",
+        ordemExibicao: 9,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_10.jpg",
+        ordemExibicao: 10,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_11.jpg",
+        ordemExibicao: 11,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_12.jpg",
+        ordemExibicao: 12,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_13.jpg",
+        ordemExibicao: 13,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_14.jpg",
+        ordemExibicao: 14,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_15.jpg",
+        ordemExibicao: 15,
+        empreendimentoId: 3,
+      },
+      {
+        status: true,
+        arquivo: "veneza_balsas_16.jpg",
+        ordemExibicao: 16,
+        empreendimentoId: 3,
+      },
     ]
   });
   let infraestruturaDoEmpreendimento = await prisma.infraestruturaDosEmpreendimentos.createMany({
