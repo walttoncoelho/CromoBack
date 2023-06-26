@@ -229,4 +229,58 @@ export class EmpreendimentoController {
   ) {
     return await this.fotoEmpreendimentoService.delete(imagemId);
   }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Patch("/manager/empreendimento/:id/logo")
+  @UseInterceptors(FileInterceptor("logo"))
+  async atualizarLogo(
+    @ParamId() empreendimentoId: number,
+    @UploadedFile() logo: Express.Multer.File
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let directory = join("empreendimento", empreendimento.slug);
+    let arquivo = await this.fileService.upload(directory, logo);
+    return await this.empreendimentoService.atualizarLogo(
+      /* id */ empreendimentoId,
+      /* logo */ arquivo
+    );
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Patch("/manager/empreendimento/:id/planta")
+  @UseInterceptors(FileInterceptor("planta"))
+  async atualizarPlanta(
+    @ParamId() empreendimentoId: number,
+    @UploadedFile() planta: Express.Multer.File
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let directory = join("empreendimento", empreendimento.slug);
+    let arquivo = await this.fileService.upload(directory, planta);
+    return await this.empreendimentoService.atualizarPlanta(
+      /* id */ empreendimentoId,
+      /* planta */ arquivo
+    );
+  }
+
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Patch("/manager/empreendimento/:id/destaque")
+  @UseInterceptors(FileInterceptor("destaque"))
+  async atualizarDestaque(
+    @ParamId() empreendimentoId: number,
+    @UploadedFile() destaque: Express.Multer.File
+  ) {
+    let empreendimento = await this.empreendimentoService.show(empreendimentoId);
+    let directory = join("empreendimento", empreendimento.slug);
+    let arquivo = await this.fileService.upload(directory, destaque);
+    return await this.empreendimentoService.atualizarDestaque(
+      /* id */ empreendimentoId,
+      /* destaque */ arquivo
+    );
+  }
 }

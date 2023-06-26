@@ -172,18 +172,40 @@ export class EmpreendimentoService {
     let empreendimento = await this.prisma.empreendimento.findUnique({
       where: { slug }
     });
-    if (!empreendimento)
+    if (!empreendimento) {
       throw new NotFoundException("Empreendimento não encontrado.");
-    return empreendimento;
+    }
+    let presented = new EmpreendimentoPresenter(
+      /* empreendimento */ empreendimento,
+      /* infraestrutura */[],
+      /* galeria */[]
+    );
+    return {
+      ...empreendimento,
+      logoEmpreendimento: presented.logoEmpreendimento,
+      imagemPlantaBaixa: presented.imagemPlantaBaixa,
+      imagemDestaque: presented.imagemDestaque,
+    };
   }
 
   async show(id: number) {
     let empreendimento = await this.prisma.empreendimento.findUnique({
       where: { id },
     });
-    if (!empreendimento)
+    if (!empreendimento) {
       throw new NotFoundException("Empreendimento não encontrado.");
-    return empreendimento;
+    }
+    let presented = new EmpreendimentoPresenter(
+      /* empreendimento */ empreendimento,
+      /* infraestrutura */ [],
+      /* galeria */ []
+    );
+    return {
+      ...empreendimento, 
+      logoEmpreendimento: presented.logoEmpreendimento,
+      imagemPlantaBaixa: presented.imagemPlantaBaixa,
+      imagemDestaque: presented.imagemDestaque,
+    };
   }
 
   async update(
@@ -219,5 +241,41 @@ export class EmpreendimentoService {
     createFotoEmpreendimentoDTO: CreateFotoEmpreendimentoDTO
   ) {
     return await this.fotoEmpreendimentoService.create(createFotoEmpreendimentoDTO);
+  }
+
+  async atualizarLogo(
+    id: number,
+    logo: string
+  ) {
+    let empreendimento = await this.show(id);
+
+    return await this.prisma.empreendimento.update({
+      data: { logoEmpreendimento: logo },
+      where: { id: empreendimento.id }
+    });
+  }
+
+  async atualizarPlanta(
+    id: number,
+    planta: string
+  ) {
+    let empreendimento = await this.show(id);
+
+    return await this.prisma.empreendimento.update({
+      data: { imagemPlantaBaixa: planta },
+      where: { id: empreendimento.id }
+    });
+  }
+
+  async atualizarDestaque(
+    id: number,
+    destaque: string
+  ) {
+    let empreendimento = await this.show(id);
+
+    return await this.prisma.empreendimento.update({
+      data: { imagemDestaque: destaque },
+      where: { id: empreendimento.id }
+    });
   }
 }
